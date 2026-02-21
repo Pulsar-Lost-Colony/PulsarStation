@@ -1,0 +1,153 @@
+# Default rules
+- type: guideEntry
+  id: PulsarRuleset
+  name: Правила сервера
+  priority: 0
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules.xml"
+  children:
+  - PulsarRule0
+  - PulsarRule1
+  - PulsarRule2
+  - PulsarRule3
+  - PulsarRule31
+  - PulsarRule32
+  - PulsarRule33
+  - PulsarRule34
+  - PulsarRule35
+  - PulsarRule36
+  - PulsarRule37
+  - PulsarRule38
+  - PulsarRule39
+  - PulsarRule4
+  - PulsarRule6
+  - PulsarRule7
+  - PulsarRule8
+  - PulsarRule9
+
+- type: guideEntry
+  id: PulsarRule0
+  name: Правило 0
+  priority: 1
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule0.xml"
+
+- type: guideEntry
+  id: PulsarRule1
+  name: Правило 1
+  priority: 2
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule1.xml"
+
+- type: guideEntry
+  id: PulsarRule2
+  name: Правило 2
+  priority: 3
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule2.xml"
+
+- type: guideEntry
+  id: PulsarRule3
+  name: Правило 3
+  priority: 4
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.xml"
+
+- type: guideEntry
+  id: PulsarRule31
+  name: Правило 3.1
+  priority: 5
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.1.xml"
+
+- type: guideEntry
+  id: PulsarRule32
+  name: Правило 3.2
+  priority: 6
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.2.xml"
+
+- type: guideEntry
+  id: PulsarRule33
+  name: Правило 3.3
+  priority: 7
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.3.xml"
+
+- type: guideEntry
+  id: PulsarRule34
+  name: Правило 3.4
+  priority: 8
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.4.xml"
+
+- type: guideEntry
+  id: PulsarRule35
+  name: Правило 3.5
+  priority: 9
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.5.xml"
+
+- type: guideEntry
+  id: PulsarRule36
+  name: Правило 3.6
+  priority: 10
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.6.xml"
+
+- type: guideEntry
+  id: PulsarRule37
+  name: Правило 3.7
+  priority: 11
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.7.xml"
+
+- type: guideEntry
+  id: PulsarRule38
+  name: Правило 3.8
+  priority: 12
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.8.xml"
+
+- type: guideEntry
+  id: PulsarRule39
+  name: Правило 3.9
+  priority: 13
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule3.9.xml"
+
+- type: guideEntry
+  id: PulsarRule4
+  name: Правило 4
+  priority: 14
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule4.xml"
+
+- type: guideEntry
+  id: PulsarRule6
+  name: Правило 6
+  priority: 15
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule6.xml"
+
+- type: guideEntry
+  id: PulsarRule7
+  name: Правило 7
+  priority: 16
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule7.xml"
+
+- type: guideEntry
+  id: PulsarRule8
+  name: Правило 8
+  priority: 17
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule8.xml"
+
+- type: guideEntry
+  id: PulsarRule9
+  name: Правило 9
+  priority: 18
+  ruleEntry: true
+  text: "/ServerInfo/Pulsar/ServerRules/PulsarRules/Rule10.xml"
+

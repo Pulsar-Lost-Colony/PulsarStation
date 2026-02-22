@@ -1,4 +1,4 @@
-using Content.Shared.CCVar;
+using Content.Shared._Pulsar.CCVar;
 using Content.Shared._Pulsar.VoiceChat;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;

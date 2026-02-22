@@ -6,8 +6,7 @@ namespace Content.Shared.Input
     public static class ContentKeyFunctions
     {
         public static readonly BoundKeyFunction ToggleKnockdown = "ToggleKnockdown";
-        //Pulsar edit
-        public static readonly BoundKeyFunction PushToTalk = "PushToTalk";
+        public static readonly BoundKeyFunction PushToTalk = "PushToTalk";  //Pulsar edit
         public static readonly BoundKeyFunction UseItemInHand = "ActivateItemInHand";
         public static readonly BoundKeyFunction AltUseItemInHand = "AltActivateItemInHand";
         public static readonly BoundKeyFunction ActivateItemInWorld = "ActivateItemInWorld";

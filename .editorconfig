@@ -162,7 +162,7 @@ csharp_preserve_single_line_blocks = true
 #### Naming styles ####
 
 # Naming rules
-
+dotnet_diagnostic.IDE1006.severity = none
 #dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
 #dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
 #dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i

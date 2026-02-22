@@ -58,8 +58,7 @@ namespace Content.Client.Input
             human.AddFunction(EngineKeyFunctions.MoveRight);
             human.AddFunction(EngineKeyFunctions.Walk);
             human.AddFunction(ContentKeyFunctions.ToggleKnockdown);
-            //Pulsar edit
-            human.AddFunction(ContentKeyFunctions.PushToTalk);
+            human.AddFunction(ContentKeyFunctions.PushToTalk);  //Pulsar edit
             human.AddFunction(ContentKeyFunctions.SwapHands);
             human.AddFunction(ContentKeyFunctions.SwapHandsReverse);
             human.AddFunction(ContentKeyFunctions.Drop);

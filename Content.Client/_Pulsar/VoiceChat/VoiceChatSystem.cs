@@ -1,4 +1,4 @@
-using Content.Shared.CCVar;
+using Content.Shared._Pulsar.CCVar;
 using Content.Shared.Input;
 using Content.Shared._Pulsar.VoiceChat;
 using OpenTK.Audio.OpenAL;

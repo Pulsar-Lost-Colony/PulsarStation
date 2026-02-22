@@ -2,10 +2,20 @@ using Content.Shared._Pulsar.CCVar;
 using Content.Shared.Input;
 using Content.Shared._Pulsar.VoiceChat;
 using OpenTK.Audio.OpenAL;
+using Robust.Client.Audio;
 using Robust.Client.Input;
 using Robust.Client.Player;
+using Robust.Client.ResourceManagement;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
+using Robust.Shared.ContentPack;
 using Robust.Shared.Input.Binding;
+using Robust.Shared.Utility;
+using System.IO;
+using Robust.Shared.Input;
+using Robust.Shared.Player;
+using Robust.Shared.Map;
 
 namespace Content.Client._Pulsar.VoiceChat;
 
@@ -13,26 +23,38 @@ public sealed class VoiceChatSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private readonly IResourceManager _res = default!;
+    [Dependency] private readonly AudioSystem _audio = default!;
 
     private const int SampleRate = 16_000;
     private const int ChunkSamples = 1024;
 
-    private IntPtr _captureDevice;
+    private static readonly MemoryContentRoot ContentRoot = new();
+    private static readonly ResPath Prefix = ResPath.Root / "VoiceChat";
+    private static bool _contentRootAdded;
+
+    private ALCaptureDevice _captureDevice;
     private bool _captureStarted;
     private bool _pushToTalk;
     private float _voiceVolume = 1f;
-
-    private readonly Dictionary<NetEntity, int> _speakerSources = new();
+    private int _chunkId;
 
     public override void Initialize()
     {
         UpdatesOutsidePrediction = true;
 
+        if (!_contentRootAdded)
+        {
+            _contentRootAdded = true;
+            _res.AddRoot(Prefix, ContentRoot);
+        }
+
         SubscribeNetworkEvent<VoiceChatAudioChunkEvent>(OnAudioChunk);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.PushToTalk, InputCmdHandler.FromDelegate(HandlePushToTalk, handle: false, outsidePrediction: true))
+            .Bind(ContentKeyFunctions.PushToTalk, new PointerStateInputCmdHandler(HandlePushToTalkDown, HandlePushToTalkUp, outsidePrediction: true))
             .Register<VoiceChatSystem>();
+
 
         Subs.CVar(_cfg, CCVars.VoiceChatVolume, volume => _voiceVolume = volume, true);
     }
@@ -40,15 +62,6 @@ public sealed class VoiceChatSystem : EntitySystem
     public override void Shutdown()
     {
         CommandBinds.Unregister<VoiceChatSystem>();
-
-        foreach (var source in _speakerSources.Values)
-        {
-            AL.SourceStop(source);
-            AL.DeleteSource(source);
-        }
-
-        _speakerSources.Clear();
-
         StopCapture();
         base.Shutdown();
     }
@@ -79,14 +92,19 @@ public sealed class VoiceChatSystem : EntitySystem
         RaiseNetworkEvent(new VoiceChatAudioChunkEvent(GetNetEntity(entity.Value), data, SampleRate));
     }
 
-    private bool HandlePushToTalk(in PointerInputCmdHandler.PointerInputCmdArgs args)
+    private bool HandlePushToTalkDown(ICommonSession? session, EntityCoordinates coordinates, EntityUid uid)
     {
-        _pushToTalk = args.State == BoundKeyState.Down;
-        if (!_pushToTalk)
-            StopCapture();
-
+        _pushToTalk = true;
         return false;
     }
+
+    private bool HandlePushToTalkUp(ICommonSession? session, EntityCoordinates coordinates, EntityUid uid)
+    {
+        _pushToTalk = false;
+        StopCapture();
+        return false;
+    }
+
 
     private void EnsureCapture()
     {
@@ -108,7 +126,7 @@ public sealed class VoiceChatSystem : EntitySystem
 
         ALC.CaptureStop(_captureDevice);
         ALC.CaptureCloseDevice(_captureDevice);
-        _captureDevice = IntPtr.Zero;
+        _captureDevice = new(IntPtr.Zero);
         _captureStarted = false;
     }
 
@@ -117,29 +135,56 @@ public sealed class VoiceChatSystem : EntitySystem
         if (!_cfg.GetCVar(CCVars.VoiceChatClientEnabled))
             return;
 
-        if (!_speakerSources.TryGetValue(ev.Speaker, out var source))
-        {
-            source = AL.GenSource();
-            _speakerSources[ev.Speaker] = source;
-        }
+        if (!TryGetEntity(ev.Speaker, out var speaker) || !(speaker?.Valid ?? false) || Deleted(speaker))
+            return;
 
-        AL.Source(source, ALSourcef.Gain, _voiceVolume);
-
-        var buffer = AL.GenBuffer();
         var samples = new short[ev.Data.Length / sizeof(short)];
         Buffer.BlockCopy(ev.Data, 0, samples, 0, ev.Data.Length);
-        AL.BufferData(buffer, ALFormat.Mono16, samples, ev.SampleRate);
-        AL.SourceQueueBuffer(source, buffer);
 
-        AL.GetSource(source, ALGetSourcei.SourceState, out var state);
-        if ((ALSourceState) state != ALSourceState.Playing)
-            AL.SourcePlay(source);
+        var chunkPath = new ResPath($"{_chunkId++}.wav");
+        ContentRoot.AddOrUpdateFile(chunkPath, BuildWav(samples, ev.SampleRate));
 
-        AL.GetSource(source, ALGetSourcei.BuffersProcessed, out var processed);
-        while (processed-- > 0)
+        var resource = new AudioResource();
+        resource.Load(IoCManager.Instance!, Prefix / chunkPath);
+
+        var soundSpecifier = new ResolvedPathSpecifier(Prefix / chunkPath);
+        var audioParams = AudioParams.Default.WithVolume(SharedAudioSystem.GainToVolume(_voiceVolume));
+
+        _audio.PlayEntity(resource.AudioStream, speaker.Value, soundSpecifier, audioParams);
+        ContentRoot.RemoveFile(chunkPath);
+    }
+
+    private static byte[] BuildWav(short[] samples, int sampleRate)
+    {
+        using var stream = new MemoryStream();
+        using var writer = new BinaryWriter(stream);
+
+        const short channels = 1;
+        const short bitsPerSample = 16;
+        var byteRate = sampleRate * channels * bitsPerSample / 8;
+        var blockAlign = (short)(channels * bitsPerSample / 8);
+        var dataLength = samples.Length * sizeof(short);
+
+        writer.Write("RIFF"u8.ToArray());
+        writer.Write(36 + dataLength);
+        writer.Write("WAVE"u8.ToArray());
+        writer.Write("fmt "u8.ToArray());
+        writer.Write(16);
+        writer.Write((short)1);
+        writer.Write(channels);
+        writer.Write(sampleRate);
+        writer.Write(byteRate);
+        writer.Write(blockAlign);
+        writer.Write(bitsPerSample);
+        writer.Write("data"u8.ToArray());
+        writer.Write(dataLength);
+
+        foreach (var sample in samples)
         {
-            var consumed = AL.SourceUnqueueBuffer(source);
-            AL.DeleteBuffer(consumed);
+            writer.Write(sample);
         }
+
+        writer.Flush();
+        return stream.ToArray();
     }
 }

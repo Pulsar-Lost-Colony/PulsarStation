@@ -42,4 +42,5 @@ public sealed class VoiceChatSystem : EntitySystem
             RaiseNetworkEvent(relayed, session.Channel);
         }
     }
+
 }

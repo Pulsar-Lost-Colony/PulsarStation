@@ -551,11 +551,12 @@ binds:
 # Pulsar edit start
 - function: PushToTalk
   type: State
-  key: .
+  key: K
   #Pulsar edit end
 - function: OpenAbilitiesMenu
   type: State
   key: K
+  mod1: Shift
 - function: Hotbar0
   type: State
   key: Num0

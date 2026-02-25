@@ -257,8 +257,7 @@ public sealed partial class CreditsWindow : DefaultWindow
 
         foreach (var entry in CreditsManager.GetLicenses(_resourceManager).OrderBy(p => p.Name))
         {
-            licensesContainer.AddChild(new Label
-                { StyleClasses = { StyleClass.LabelHeading }, Text = entry.Name });
+            licensesContainer.AddChild(new Label { StyleClasses = { StyleClass.LabelHeading }, Text = entry.Name });
 
             // We split these line by line because otherwise
             // the LGPL causes Clyde to go out of bounds in the rendering code.
@@ -298,8 +297,7 @@ public sealed partial class CreditsWindow : DefaultWindow
                 patronsContainer.AddChild(new Control { MinSize = new Vector2(0, 10) });
 
             first = false;
-            patronsContainer.AddChild(new Label
-                { StyleClasses = { StyleClass.LabelHeading }, Text = $"{tier.Key}" });
+            patronsContainer.AddChild(new Label { StyleClasses = { StyleClass.LabelHeading }, Text = $"{tier.Key}" });
 
             var msg = string.Join(", ", tier.OrderBy(p => p.Name).Select(p => p.Name));
 
@@ -346,8 +344,7 @@ public sealed partial class CreditsWindow : DefaultWindow
                 ss14ContributorsContainer.AddChild(new Control { MinSize = new Vector2(0, 10) });
 
             first = false;
-            ss14ContributorsContainer.AddChild(new Label
-                { StyleClasses = { StyleClass.LabelHeading }, Text = title });
+            ss14ContributorsContainer.AddChild(new Label { StyleClasses = { StyleClass.LabelHeading }, Text = title });
 
             var label = new RichTextLabel();
             var text = _resourceManager.ContentFileReadAllText($"/Credits/{path}");

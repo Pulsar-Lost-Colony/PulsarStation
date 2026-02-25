@@ -52,7 +52,7 @@ public sealed class AmbientSoundSystem : SharedAmbientSoundSystem
     /// <summary>
     /// How many times we can be playing 1 particular sound at once.
     /// </summary>
-    private int MaxSingleSound => (int) (_maxAmbientCount / (16.0f / 6.0f));
+    private int MaxSingleSound => (int)(_maxAmbientCount / (16.0f / 6.0f));
 
     private readonly Dictionary<Entity<AmbientSoundComponent>, (EntityUid? Stream, SoundSpecifier Sound, string Path)> _playingSounds = new();
     private readonly Dictionary<string, int> _playingCount = new();
@@ -247,8 +247,7 @@ public sealed class AmbientSoundSystem : SharedAmbientSoundSystem
             var comp = ent.Comp;
 
             if (comp.Enabled &&
-                // Don't keep playing sounds that have changed since.
-                sound.Sound == comp.Sound &&
+                sound.Sound == comp.Sound &&    // Don't keep playing sounds that have changed since.
                 query.TryGetComponent(owner, out var xform) &&
                 xform.MapID == playerXform.MapID &&
                 !metaQuery.GetComponent(owner).EntityPaused)
@@ -299,8 +298,7 @@ public sealed class AmbientSoundSystem : SharedAmbientSoundSystem
 
                 var audioParams = _params
                     .AddVolume(comp.Volume + _ambienceVolume)
-                    // Randomise start so 2 sources don't increase their volume.
-                    .WithPlayOffset(_random.NextFloat(0.0f, 100.0f))
+                    .WithPlayOffset(_random.NextFloat(0.0f, 100.0f))    // Randomise start so 2 sources don't increase their volume.
                     .WithMaxDistance(comp.Range);
 
                 var stream = _audio.PlayEntity(comp.Sound, Filter.Local(), uid, false, audioParams);

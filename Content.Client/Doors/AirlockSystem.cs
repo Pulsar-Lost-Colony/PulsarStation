@@ -95,8 +95,8 @@ public sealed class AirlockSystem : SharedAirlockSystem
             emergencyLightsVisible = _appearanceSystem.TryGetData<bool>(uid, DoorVisuals.EmergencyLights, out var eaLights, args.Component) && eaLights;
             unlitVisible =
                     (state == DoorState.Closing
-                ||  state == DoorState.Opening
-                ||  state == DoorState.Denying
+                || state == DoorState.Opening
+                || state == DoorState.Denying
                 || (state == DoorState.Open && comp.OpenUnlitVisible)
                 || (state == DoorState.Closed && comp.OpenUnlitVisible)) // Corvax-Resprite-Airlocks-Edit
                     && !boltedVisible && !emergencyLightsVisible;
@@ -110,9 +110,9 @@ public sealed class AirlockSystem : SharedAirlockSystem
                 (uid, args.Sprite),
                 DoorVisualLayers.BaseEmergencyAccess,
                     emergencyLightsVisible
-                &&  state != DoorState.Open
-                &&  state != DoorState.Opening
-                &&  state != DoorState.Closing
+                && state != DoorState.Open
+                && state != DoorState.Opening
+                && state != DoorState.Closing
                 && !boltedVisible
             );
         }

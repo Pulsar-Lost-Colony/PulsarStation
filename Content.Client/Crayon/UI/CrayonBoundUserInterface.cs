@@ -57,7 +57,7 @@ namespace Content.Client.Crayon.UI
         {
             base.UpdateState(state);
 
-            _menu?.UpdateState((CrayonBoundUserInterfaceState) state);
+            _menu?.UpdateState((CrayonBoundUserInterfaceState)state);
         }
 
         public void Select(string state)

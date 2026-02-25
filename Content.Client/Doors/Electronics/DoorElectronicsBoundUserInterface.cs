@@ -54,7 +54,7 @@ public sealed class DoorElectronicsBoundUserInterface : BoundUserInterface
     {
         base.UpdateState(state);
 
-        var castState = (DoorElectronicsConfigurationState) state;
+        var castState = (DoorElectronicsConfigurationState)state;
 
         _window?.UpdateState(castState);
     }

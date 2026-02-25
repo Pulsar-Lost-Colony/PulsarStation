@@ -61,7 +61,7 @@ public sealed partial class AdminNotesLine : BoxContainer
         if (iconPath is null)
         {
             SeverityRect.Visible = false;
-            Logger.WarningS("admin.notes", $"Could not find an icon for note ID {Note.Id}");
+            IoCManager.Resolve<ISawmill>().Warning("admin.notes", $"Could not find an icon for note ID {Note.Id}");
         }
         else
         {
@@ -192,6 +192,7 @@ public sealed partial class AdminNotesLine : BoxContainer
         Refresh();
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

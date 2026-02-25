@@ -1,7 +1,8 @@
 using Content.Shared.CCVar;
 using Content.Shared.Flash;
 using Content.Shared.Flash.Components;
-using Content.Shared.StatusEffect;
+using Content.Shared.StatusEffectNew;
+using Content.Shared.StatusEffectNew.Components;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Configuration;
@@ -48,15 +49,15 @@ namespace Content.Client.Flash
                 return;
 
             if (!_entityManager.HasComponent<FlashedComponent>(playerEntity)
-                || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status))
+                || !_entityManager.TryGetComponent<StatusEffectContainerComponent>(playerEntity, out var status))
                 return;
 
-            if (!_statusSys.TryGetTime(playerEntity.Value, _flash.FlashedKey, out var time, status))
+            if (!_statusSys.TryGetTime(playerEntity.Value, _flash.FlashedKey.Id, out var time, status))
                 return;
 
             var curTime = _timing.CurTime;
-            var lastsFor = (float)(time.Value.Item2 - time.Value.Item1).TotalSeconds;
-            var timeDone = (float)(curTime - time.Value.Item1).TotalSeconds;
+            var lastsFor = (float)(time.EndEffectTime - time.StartEffectTime)!.Value.TotalSeconds;
+            var timeDone = (float)(curTime - time.StartEffectTime)!.Value.TotalSeconds;
 
             PercentComplete = timeDone / lastsFor;
         }
@@ -86,7 +87,7 @@ namespace Content.Client.Flash
             {
                 // TODO: This is a very simple placeholder.
                 // Replace it with a proper shader once we come up with something good.
-                // Turns out making an effect that is supposed to be a bright, sudden, and disorienting flash 
+                // Turns out making an effect that is supposed to be a bright, sudden, and disorienting flash
                 // not do any of that while also being equivalent in terms of game balance is hard.
                 var alpha = 1 - MathF.Pow(PercentComplete, 8f); // similar falloff curve to the flash shader
                 worldHandle.DrawRect(args.WorldBounds, new Color(0f, 0f, 0f, alpha));

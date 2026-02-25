@@ -84,7 +84,7 @@ namespace Content.Client.Atmos.UI
             if (cast.FilteredGas is not null)
             {
                 var atmos = EntMan.System<AtmosphereSystem>();
-                var gas = atmos.GetGas((Gas) cast.FilteredGas);
+                var gas = atmos.GetGas((Gas)cast.FilteredGas);
                 var gasName = Loc.GetString(gas.Name);
                 _window.SetGasFiltered(gas.ID, gasName);
             }
@@ -98,7 +98,8 @@ namespace Content.Client.Atmos.UI
         {
             base.Dispose(disposing);
             if (!disposing) return;
-            _window?.Dispose();
+            _window?.Orphan();
+            _window = null;
         }
     }
 }

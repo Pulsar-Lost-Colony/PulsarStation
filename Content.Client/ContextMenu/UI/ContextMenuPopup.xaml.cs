@@ -32,7 +32,7 @@ namespace Content.Client.ContextMenu.UI
 
         private ContextMenuUIController _uiController;
 
-        public ContextMenuPopup (ContextMenuUIController uiController, ContextMenuElement? parentElement) : base()
+        public ContextMenuPopup(ContextMenuUIController uiController, ContextMenuElement? parentElement) : base()
         {
             RobustXamlLoader.Load(this);
             MenuPanel.SetOnlyStyleClass(StyleClassContextMenuPopup);
@@ -70,6 +70,7 @@ namespace Content.Client.ContextMenu.UI
             };
         }
 
+        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             MenuBody.OnChildRemoved -= ctrl => _uiController.OnRemoveElement(this, ctrl);

@@ -38,7 +38,7 @@ public sealed partial class AnomalyGeneratorWindow : FancyWindow
         _cooldownEnd = state.CooldownEndTime;
         _hasEnoughFuel = state.FuelCost <= state.FuelAmount;
 
-        var fuelCompletion = Math.Clamp((float) state.FuelAmount / state.FuelCost, 0f, 1f);
+        var fuelCompletion = Math.Clamp((float)state.FuelAmount / state.FuelCost, 0f, 1f);
 
         FuelBar.Value = fuelCompletion;
 

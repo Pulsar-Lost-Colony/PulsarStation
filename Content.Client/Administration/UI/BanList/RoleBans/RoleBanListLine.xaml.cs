@@ -29,6 +29,7 @@ public sealed partial class RoleBanListLine : BoxContainer, IBanListLine<SharedS
         IdsClicked?.Invoke(this);
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

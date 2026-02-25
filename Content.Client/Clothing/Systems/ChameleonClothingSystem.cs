@@ -37,7 +37,11 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
         if (TryComp(uid, out SpriteComponent? sprite)
             && proto.TryGetComponent(out SpriteComponent? otherSprite, Factory))
         {
-            sprite.CopyFrom(otherSprite);
+            var ent = new Entity<SpriteComponent>
+            {
+                Comp = otherSprite
+            };
+            IoCManager.Resolve<SpriteSystem>().CopySprite((ent, otherSprite), (uid, sprite));
         }
 
         // Edgecase for PDAs to include visuals when UI is open

@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 using Content.Client.Administration.Managers;
 using Content.Client.Administration.Systems;
 using Content.Client.UserInterface;
@@ -41,6 +42,7 @@ namespace Content.Client.ContextMenu.UI
             UpdateEntity();
         }
 
+        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

@@ -95,6 +95,7 @@ public sealed partial class AdminNotesLinePopup : Popup
         DeleteButton.ModulateSelfOverride = null;
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

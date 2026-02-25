@@ -26,8 +26,7 @@ namespace Content.Client.Stylesheets
             var ds = display ? "Display" : "";
             var sv = variation.StartsWith("Bold", StringComparison.Ordinal) ? "Bold" : "Regular";
             return resCache.GetFont
-            (
-                // Ew, but ok
+            (   // Ew, but ok
                 new[]
                 {
                     $"/Fonts/NotoSans{ds}/NotoSans{ds}-{variation}.ttf",

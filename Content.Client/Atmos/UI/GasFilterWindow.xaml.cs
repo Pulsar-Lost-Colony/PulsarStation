@@ -98,8 +98,8 @@ namespace Content.Client.Atmos.UI
 
         private void GasListOnItemSelected(ItemList.ItemListSelectedEventArgs obj)
         {
-            SelectedGas = (string) obj.ItemList[obj.ItemIndex].Metadata!;
-            if(SelectedGas != CurrentGasId) SelectGasButton.Disabled = false;
+            SelectedGas = (string)obj.ItemList[obj.ItemIndex].Metadata!;
+            if (SelectedGas != CurrentGasId) SelectGasButton.Disabled = false;
         }
 
         private void GasListOnItemDeselected(ItemList.ItemListDeselectedEventArgs obj)

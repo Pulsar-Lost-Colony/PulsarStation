@@ -44,8 +44,7 @@ namespace Content.Client.Access.UI
                 _accessButtons.Add(accessLevel.ID, newButton);
                 newButton.OnPressed += _ =>
                 {
-                    OnSubmit?.Invoke(
-                        // Iterate over the buttons dictionary, filter by `Pressed`, only get key from the key/value pair
+                    OnSubmit?.Invoke(   // Iterate over the buttons dictionary, filter by `Pressed`, only get key from the key/value pair
                         _accessButtons.Where(x => x.Value.Pressed).Select(x => new ProtoId<AccessLevelPrototype>(x.Key)).ToList());
                 };
             }
@@ -93,8 +92,8 @@ namespace Content.Client.Access.UI
                 if (interfaceEnabled)
                 {
                     // Explicit cast because Rider gives a false error otherwise.
-                    button.Pressed = state.TargetAccessReaderIdAccessList?.Contains((ProtoId<AccessLevelPrototype>) accessName) ?? false;
-                    button.Disabled = (!state.AllowedModifyAccessList?.Contains((ProtoId<AccessLevelPrototype>) accessName)) ?? true;
+                    button.Pressed = state.TargetAccessReaderIdAccessList?.Contains((ProtoId<AccessLevelPrototype>)accessName) ?? false;
+                    button.Disabled = (!state.AllowedModifyAccessList?.Contains((ProtoId<AccessLevelPrototype>)accessName)) ?? true;
                 }
             }
         }

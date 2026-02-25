@@ -27,7 +27,7 @@ namespace Content.Client.Access.UI
         {
             _idCardConsoleSystem = EntMan.System<SharedIdCardConsoleSystem>();
 
-            _maxNameLength =_cfgManager.GetCVar(CCVars.MaxNameLength);
+            _maxNameLength = _cfgManager.GetCVar(CCVars.MaxNameLength);
             _maxIdJobLength = _cfgManager.GetCVar(CCVars.MaxIdJobLength);
         }
 
@@ -65,13 +65,14 @@ namespace Content.Client.Access.UI
             if (!disposing)
                 return;
 
-            _window?.Dispose();
+            _window?.Orphan();
+            _window = null;
         }
 
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            var castState = (IdCardConsoleBoundUserInterfaceState) state;
+            var castState = (IdCardConsoleBoundUserInterfaceState)state;
             _window?.UpdateState(castState);
         }
 

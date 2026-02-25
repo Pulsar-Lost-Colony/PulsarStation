@@ -62,12 +62,6 @@
   beginMonth: March
 
 - type: holiday
-  id: StPatricksDay
-  name: holiday-name-st-patricks-day
-  beginDay: 17
-  beginMonth: March
-
-- type: holiday
   id: Easter
   name: holiday-name-easter
   shouldCelebrate:
@@ -80,12 +74,6 @@
   beginMonth: April
 
 - type: holiday
-  id: AutismAwarenessDay
-  name: holiday-name-autism-awareness-day
-  beginDay: 2
-  beginMonth: April
-
-- type: holiday
   id: CosmonauticsDay
   name: holiday-name-cosmonautics-day
   beginDay: 12
@@ -93,12 +81,6 @@
   greet:
     !type:Custom
     text: holiday-custom-cosmonautics-day
-
-- type: holiday
-  id: FourTwenty
-  name: holiday-name-four-twenty
-  beginDay: 20
-  beginMonth: April
 
 - type: holiday
   id: TeaDay
@@ -125,12 +107,6 @@
   beginMonth: April
 
 - type: holiday
-  id: LaborDay
-  name: holiday-name-labor-day
-  beginDay: 1
-  beginMonth: May
-
-- type: holiday
   id: FirefighterDay
   name: holiday-name-firefighter-day
   beginDay: 4
@@ -147,12 +123,6 @@
   greet:
     !type:Custom
     text: holiday-custom-mothers-day
-
-- type: holiday
-  id: OwlAndPussycatDay
-  name: holiday-name-owl-and-pussycat-day
-  beginDay: 12
-  beginMonth: May
 
 - type: holiday
   id: TowelDay
@@ -191,12 +161,6 @@
   id: SummerSolstice
   name: holiday-name-summer-solstice
   beginDay: 21
-  beginMonth: June
-
-- type: holiday
-  id: StonewallRiotsAnniversary
-  name: holiday-name-stonewall-riots-anniversary
-  beginDay: 28
   beginMonth: June
 
 - type: holiday
@@ -266,12 +230,6 @@
     dayOfYear: 256
 
 - type: holiday
-  id: BisexualPrideDay
-  name: holiday-name-bisexual-pride-day
-  beginDay: 23
-  beginMonth: September
-
-- type: holiday
   id: StupidQuestionsDay
   name: holiday-name-stupid-questions-day
   beginDay: 28
@@ -288,36 +246,6 @@
   name: holiday-name-smiling-day
   beginDay: 7
   beginMonth: October
-
-- type: holiday
-  id: LesbianDay
-  name: holiday-name-lesbian-day
-  beginDay: 8
-  beginMonth: October
-
-- type: holiday
-  id: NationalComingOutDay
-  name: holiday-name-national-coming-out-day
-  beginDay: 11
-  beginMonth: October
-
-- type: holiday
-  id: CanadianThanksgiving
-  name: holiday-name-canadian-thanksgiving
-  beginMonth: October
-  shouldCelebrate:
-    !type:WeekdayInMonth
-    occurrence: 2
-    weekday: Monday
-
-- type: holiday
-  id: SpiritDay
-  name: holiday-name-spirit-day
-  beginMonth: October
-  shouldCelebrate:
-    !type:WeekdayInMonth
-    occurrence: 3
-    weekday: Thursday
 
 - type: holiday
   id: Halloween
@@ -362,12 +290,6 @@
   beginMonth: November
 
 - type: holiday
-  id: TransgenderRemembranceDay
-  name: holiday-name-transgender-remembrance-day
-  beginDay: 20
-  beginMonth: November
-
-- type: holiday
   id: SayingHelloDay
   name: holiday-name-saying-hello-day
   beginDay: 21
@@ -381,12 +303,6 @@
     !type:WeekdayInMonth
     occurrence: 4
     weekday: Thursday
-
-- type: holiday
-  id: Sinterklaas
-  name: holiday-name-sinterklaas
-  beginDay: 5
-  beginMonth: December
 
 - type: holiday
   id: HumanRightsDay
@@ -437,10 +353,3 @@
   name: holiday-name-friday-thirteenth
   shouldCelebrate:
     !type:FridayThirteenth { }
-
-- type: holiday
-  id: PrideMonth
-  name: holiday-name-pride-month
-  beginDay: 1
-  endDay: 31
-  beginMonth: June

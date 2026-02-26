@@ -7,8 +7,8 @@ lobbyduration = 300
 round_restart_time = 300
 hostname = "☀ Pulsar - lost colony"
 desc = "Эксперементальный русскоязычный сервер проекта Pulsar. Больше информации в нашем Discord."
-soft_max_players = 100
-maxplayers = 69
+soft_max_players = 69
+maxplayers = 100
 
 [server]
 lobby_name = "☀ Pulsar - lost colony"
@@ -22,3 +22,9 @@ see_own_notes = true
 
 [hub]
 tags = "lang:ru"
+
+[ahelp]
+admin_prefix = true
+
+[adminlogs]
+server_name = "PulsarStation"

@@ -141,10 +141,10 @@ public sealed partial class DungeonJob
                     }
                 }
 
-                if (groupSize > 0)
-                {
-                    _sawmill.Warning($"Found remaining group size for ore veins of {gen.Replacement ?? "null"}!");
-                }
+                // if (groupSize > 0)   //Pulsar edit: оно слишком много спамит
+                // {
+                //     _sawmill.Warning($"Found remaining group size for ore veins of {gen.Replacement ?? "null"}!");
+                // }
             }
         }
     }

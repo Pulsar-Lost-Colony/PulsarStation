@@ -46,9 +46,14 @@ namespace Content.Client.Administration.UI.ManageSolutions
         public override void Close()
         {
             base.Close();
-            _addReagentWindow?.Close();
-            _addReagentWindow?.Orphan();
-            _addReagentWindow = null;
+
+            if (_addReagentWindow != null)
+            {
+                _addReagentWindow.Close();
+                if (_addReagentWindow.Parent != null)
+                    _addReagentWindow.Orphan();
+                _addReagentWindow = null;
+            }
         }
 
         public void SetTargetEntity(NetEntity target)
@@ -272,8 +277,12 @@ namespace Content.Client.Administration.UI.ManageSolutions
             if (string.IsNullOrEmpty(_selectedSolution))
                 return;
 
-            _addReagentWindow?.Close();
-            _addReagentWindow?.Orphan();
+            if (_addReagentWindow != null)
+            {
+                _addReagentWindow.Close();
+                if (_addReagentWindow.Parent != null)
+                    _addReagentWindow.Orphan();
+            }
 
             _addReagentWindow = new AddReagentWindow(_target, _selectedSolution);
             _addReagentWindow.OpenCentered();
@@ -359,7 +368,8 @@ namespace Content.Client.Administration.UI.ManageSolutions
             {
                 // No applicable solutions
                 Close();
-                Orphan();
+                if (Parent != null)
+                    Orphan();
                 return;
             }
 

@@ -128,7 +128,8 @@ public sealed class EmotesUIController : UIController, IOnStateChanged<GameplayS
         if (_menu == null)
             return;
 
-        _menu.Orphan();
+        if (_menu.Parent != null)
+            _menu.Orphan();
         _menu = null;
     }
 

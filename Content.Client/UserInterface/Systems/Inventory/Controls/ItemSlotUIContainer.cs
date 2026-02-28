@@ -41,7 +41,8 @@ public abstract class ItemSlotUIContainer<T> : GridContainer, IItemslotUIContain
     {
         foreach (var button in Buttons.Values)
         {
-            button.Orphan();
+            if (button != null && button.Parent != null)
+                button.Orphan();
         }
 
         Buttons.Clear();
@@ -123,7 +124,6 @@ public abstract class ItemSlotUIContainer<T> : GridContainer, IItemslotUIContain
     {
         RemoveButtonFromDict(button);
         Children.Remove(button);
-        button.Orphan();
     }
 
     public virtual T? GetButton(string slotName)

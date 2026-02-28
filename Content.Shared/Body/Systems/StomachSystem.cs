@@ -108,8 +108,7 @@ namespace Content.Shared.Body.Systems
         {
             return Resolve(uid, ref stomach, ref solutions, logMissing: false)
                 && _solutionContainerSystem.ResolveSolution((uid, solutions), DefaultSolutionName, ref stomach.Solution, out var stomachSolution)
-                // TODO: For now no partial transfers. Potentially change by design
-                && stomachSolution.CanAddSolution(solution);
+                && stomachSolution.CanAddSolution(solution);    // TODO: For now no partial transfers. Potentially change by design
         }
 
         public bool TryTransferSolution(

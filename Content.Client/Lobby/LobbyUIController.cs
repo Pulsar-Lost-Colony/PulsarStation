@@ -150,11 +150,19 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
     public void OnStateExited(LobbyState state)
     {
         PreviewPanel?.SetLoaded(false);
-        _profileEditor?.Orphan();
-        _characterSetup?.Orphan();
+        if (_profileEditor != null)
+        {
+            if (_profileEditor.Parent != null)
+                _profileEditor.Orphan();
+            _profileEditor = null;
+        }
 
-        _characterSetup = null;
-        _profileEditor = null;
+        if (_characterSetup != null)
+        {
+            if (_characterSetup.Parent != null)
+                _characterSetup.Orphan();
+            _characterSetup = null;
+        }
     }
 
     /// <summary>

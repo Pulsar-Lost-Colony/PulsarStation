@@ -69,8 +69,14 @@ namespace Content.Client.Instruments.UI
                 _instrumentMenu?.RemoveInstrument(instrument);
             }
 
-            _bandMenu?.Orphan();
-            _channelsMenu?.Orphan();
+            if (_bandMenu != null && _bandMenu.Parent != null)
+            {
+                _bandMenu.Orphan();
+            }
+            if (_channelsMenu != null && _channelsMenu.Parent != null)
+            {
+                _channelsMenu.Orphan();
+            }
         }
 
         public void RefreshBands()

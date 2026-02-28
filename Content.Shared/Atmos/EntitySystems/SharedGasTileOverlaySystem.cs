@@ -61,7 +61,7 @@ namespace Content.Shared.Atmos.EntitySystems
 
         public static Vector2i GetGasChunkIndices(Vector2i indices)
         {
-            return new((int) MathF.Floor((float) indices.X / ChunkSize), (int) MathF.Floor((float) indices.Y / ChunkSize));
+            return new((int)MathF.Floor((float)indices.X / ChunkSize), (int)MathF.Floor((float)indices.Y / ChunkSize));
         }
 
         [Serializable, NetSerializable]

@@ -12,13 +12,13 @@ namespace Content.Shared.Access.Systems
         [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
         [Dependency] private readonly ILogManager _log = default!;
 
-        public const string Sawmill = "accessoverrider";
-        protected ISawmill _sawmill = default!;
+        public const string SawmillLocalName = "accessoverrider";
+        protected ISawmill Sawmill = default!;
 
         public override void Initialize()
         {
             base.Initialize();
-            _sawmill = _log.GetSawmill(Sawmill);
+            Sawmill = _log.GetSawmill(SawmillLocalName);
 
             SubscribeLocalEvent<AccessOverriderComponent, ComponentInit>(OnComponentInit);
             SubscribeLocalEvent<AccessOverriderComponent, ComponentRemove>(OnComponentRemove);

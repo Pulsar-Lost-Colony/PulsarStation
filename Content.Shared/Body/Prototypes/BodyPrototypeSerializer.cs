@@ -118,7 +118,7 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
 
         foreach (var (slotId, valueNode) in slotNodes)
         {
-            var slot = (MappingDataNode) valueNode;
+            var slot = (MappingDataNode)valueNode;
 
             string? part = null;
             if (slot.TryGet<ValueDataNode>("part", out var value))
@@ -144,7 +144,7 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
 
                 foreach (var (organKey, organValueNode) in slotOrgansNode)
                 {
-                    organs.Add(organKey, ((ValueDataNode) organValueNode).Value);
+                    organs.Add(organKey, ((ValueDataNode)organValueNode).Value);
                 }
             }
 
@@ -173,6 +173,10 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
             slots.Add(slotId, slot);
         }
 
+#pragma warning disable RA0039 // Prototype is created as part of deserialization infrastructure
+
         return new BodyPrototype(id, name, root, slots);
+#pragma warning restore RA0039 // Do not instantiate prototypes directly
+
     }
 }

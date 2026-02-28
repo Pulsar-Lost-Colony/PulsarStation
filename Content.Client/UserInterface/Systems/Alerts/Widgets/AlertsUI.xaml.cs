@@ -43,7 +43,8 @@ public sealed partial class AlertsUI : UIWidget
         foreach (var alertControl in _alertControls.Values)
         {
             alertControl.OnPressed -= AlertControlPressed;
-            alertControl.Orphan();
+            if (alertControl != null && alertControl.Parent != null)
+                alertControl.Orphan();
         }
 
         _alertControls.Clear();

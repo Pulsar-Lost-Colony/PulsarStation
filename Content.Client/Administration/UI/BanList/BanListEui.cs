@@ -38,8 +38,13 @@ public sealed class BanListEui : BaseEui
         if (_popup != null)
         {
             _popup.Close();
-            _popup.Orphan();
-            _popup = null;
+
+            if (_popup != null)
+            {
+                if (_popup.Parent != null)
+                    _popup.Orphan();
+                _popup = null;
+            }
         }
 
         SendMessage(new CloseEuiMessage());

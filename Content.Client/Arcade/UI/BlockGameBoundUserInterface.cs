@@ -71,6 +71,11 @@ public sealed class BlockGameBoundUserInterface : BoundUserInterface
         if (!disposing)
             return;
 
-        _menu?.Dispose();
+        if (_menu != null)
+        {
+            if (_menu.Parent != null)
+                _menu.Orphan();
+            _menu = null;
+        }
     }
 }

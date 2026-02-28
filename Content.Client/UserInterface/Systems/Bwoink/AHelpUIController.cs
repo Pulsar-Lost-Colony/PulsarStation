@@ -380,9 +380,11 @@ public sealed class AdminAHelpUIHandler : IAHelpUIHandler
             {
                 foreach (var (_, panel) in _activePanelMap)
                 {
-                    panel.Orphan();
+                    if (panel != null && panel.Parent != null)
+                        panel.Orphan();
                 }
-                Control?.Orphan();
+                if (Control.Parent != null)
+                    Control.Orphan();
                 Control = null;
             }
             // window wont be closed here so we will invoke ourselves
@@ -484,8 +486,12 @@ public sealed class AdminAHelpUIHandler : IAHelpUIHandler
 
     public void Dispose()
     {
-        Window?.Orphan();
-        Window = null;
+        if (Window != null)
+        {
+            if (Window.Parent != null)
+                Window?.Orphan();
+            Window = null;
+        }
         Control = null;
         _activePanelMap.Clear();
         EverOpened = false;
@@ -586,8 +592,12 @@ public sealed class UserAHelpUIHandler : IAHelpUIHandler
 
     public void Dispose()
     {
-        _window?.Orphan();
-        _window = null;
+        if (_window != null)
+        {
+            if (_window.Parent != null)
+                _window?.Orphan();
+            _window = null;
+        }
         _chatPanel = null;
     }
 }

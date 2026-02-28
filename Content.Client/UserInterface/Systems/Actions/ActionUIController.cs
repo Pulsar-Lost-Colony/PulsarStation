@@ -111,7 +111,8 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         UpdateFilterLabel();
         QueueWindowUpdate();
 
-        _dragShadow.Orphan();
+        if (_dragShadow.Parent != null)
+            _dragShadow.Orphan();
         UIManager.PopupRoot.AddChild(_dragShadow);
 
         var builder = CommandBinds.Builder;
@@ -373,7 +374,8 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
 
         for (; i < existing.Count; i++)
         {
-            existing[i].Orphan();
+            if (existing[i].Parent != null)
+                existing[i].Orphan();
         }
     }
 
@@ -652,7 +654,8 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             _window.SearchBar.OnTextChanged -= OnSearchChanged;
             _window.FilterButton.OnItemSelected -= OnFilterSelected;
 
-            _window.Orphan();
+            if (_window.Parent != null)
+                _window.Orphan();
             _window = null;
         }
     }

@@ -64,7 +64,8 @@ public sealed partial class AdminCameraEui : BaseEui
         if (_osWindow.Root == null)
             return;
 
-        _control.Orphan();
+        if (_control.Parent != null)
+            _control.Orphan();
         _osWindow.Root.AddChild(_control);
 
         _osWindow.Closed += () =>
@@ -82,7 +83,8 @@ public sealed partial class AdminCameraEui : BaseEui
     // Pop the window back into the in game window.
     private void PopIn()
     {
-        _control.Orphan();
+        if (_control.Parent != null)
+            _control.Orphan();
         _window.Contents.AddChild(_control);
 
         _window.Open(_lastLocation);

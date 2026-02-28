@@ -20,7 +20,8 @@ public sealed partial class BanListControl : Control
     {
         for (var i = Bans.ChildCount - 1; i >= 1; i--)
         {
-            Bans.GetChild(i).Orphan();
+            if (Bans.GetChild(i).Parent != null)
+                Bans.GetChild(i).Orphan();
         }
 
         foreach (var ban in bans)

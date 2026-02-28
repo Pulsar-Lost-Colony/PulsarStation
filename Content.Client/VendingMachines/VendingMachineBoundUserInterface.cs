@@ -78,7 +78,11 @@ namespace Content.Client.VendingMachines
 
             _menu.OnItemSelected -= OnItemSelected;
             _menu.OnClose -= Close;
-            _menu.Orphan();
+
+            if (_menu.Parent != null)
+                _menu.Orphan();
+
+            _menu = null;
         }
     }
 }

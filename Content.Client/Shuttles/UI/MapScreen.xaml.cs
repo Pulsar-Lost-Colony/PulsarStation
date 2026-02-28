@@ -486,7 +486,8 @@ public sealed partial class MapScreen : BoxContainer
 
             foreach (var child in _sortChildren)
             {
-                child.Orphan();
+                if (child.Parent != null)
+                    child.Orphan();
             }
 
             _sortChildren.Sort((x, y) =>

@@ -32,9 +32,11 @@ public sealed class StationAiCustomizationBoundUserInterface : BoundUserInterfac
     {
         base.Dispose(disposing);
 
-        if (!disposing)
-            return;
-
-        _menu?.Orphan();
+        if (disposing && _menu != null)
+        {
+            if (_menu.Parent != null)
+                _menu.Orphan();
+            _menu = null;
+        }
     }
 }

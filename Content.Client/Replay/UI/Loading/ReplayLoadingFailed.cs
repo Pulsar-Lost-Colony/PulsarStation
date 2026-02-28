@@ -31,6 +31,7 @@ public sealed class ReplayLoadingFailed : State
 
     protected override void Shutdown()
     {
-        _control?.Orphan();
+        if (_control != null && _control.Parent != null)
+            _control.Orphan();
     }
 }

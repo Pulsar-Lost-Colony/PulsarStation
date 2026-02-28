@@ -48,6 +48,11 @@ public sealed class MeleeSpeechBoundUserInterface : BoundUserInterface
         if (!disposing)
             return;
 
-        _window?.Orphan();
+        if (_window != null)
+        {
+            if (_window.Parent != null)
+                _window?.Orphan();
+            _window = null;
+        }
     }
 }

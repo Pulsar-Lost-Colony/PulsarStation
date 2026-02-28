@@ -13,13 +13,13 @@ namespace Content.Shared.Access.Systems
         [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
         [Dependency] private readonly ILogManager _log = default!;
 
-        public const string Sawmill = "idconsole";
-        protected ISawmill _sawmill = default!;
+        public const string SawmillLocaName = "idconsole";
+        protected ISawmill Sawmill = default!;
 
         public override void Initialize()
         {
             base.Initialize();
-            _sawmill = _log.GetSawmill(Sawmill);
+            Sawmill = _log.GetSawmill(SawmillLocaName);
 
             SubscribeLocalEvent<IdCardConsoleComponent, ComponentInit>(OnComponentInit);
             SubscribeLocalEvent<IdCardConsoleComponent, ComponentRemove>(OnComponentRemove);

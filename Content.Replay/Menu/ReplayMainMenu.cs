@@ -263,7 +263,7 @@ public sealed class ReplayMainScreen : State
         }
         catch (Exception ex)
         {
-            Logger.Error($"Failed to load replay info. Exception: {ex}");
+            IoCManager.Resolve<ISawmill>().Error($"Failed to load replay info. Exception: {ex}");
             SelectReplay(null);
             return;
         }
@@ -272,8 +272,14 @@ public sealed class ReplayMainScreen : State
 
     protected override void Shutdown()
     {
-        _mainMenuControl.Dispose();
-        _selectWindow?.Dispose();
+        if (_mainMenuControl.Parent != null)
+            _mainMenuControl.Orphan();
+        if (_selectWindow != null)
+        {
+            if (_selectWindow.Parent != null)
+                _selectWindow.Orphan();
+            _selectWindow = null;
+        }
     }
 
     private void OptionsButtonPressed(BaseButton.ButtonEventArgs args)

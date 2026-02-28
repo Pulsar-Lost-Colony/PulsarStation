@@ -172,9 +172,15 @@ public sealed class AdminLogsEui : BaseEui
             Height = 400
         });
 
-        LogsControl.Orphan();
-        LogsWindow.Orphan();
-        LogsWindow = null;
+        if (LogsControl.Parent != null)
+            LogsControl.Orphan();
+
+        if (LogsWindow != null)
+        {
+            if (LogsWindow.Parent != null)
+                LogsWindow.Orphan();
+            LogsWindow = null;
+        }
 
         ClydeWindow.RequestClosed += OnRequestClosed;
         ClydeWindow.DisposeOnClose = true;
@@ -255,11 +261,21 @@ public sealed class AdminLogsEui : BaseEui
             ClydeWindow.RequestClosed -= OnRequestClosed;
         }
 
-        LogsControl.Orphan();
-        LogsWindow?.Orphan();
-        LogsWindow = null;
-        Root?.Orphan();
-        Root = null;
+        if (LogsControl.Parent != null)
+            LogsControl.Orphan();
+
+        if (LogsWindow != null)
+        {
+            if (LogsWindow.Parent != null)
+                LogsWindow.Orphan();
+            LogsWindow = null;
+        }
+        if (Root != null)
+        {
+            if (Root.Parent != null)
+                Root.Orphan();
+            Root = null;
+        }
         ClydeWindow?.Dispose();
     }
 }

@@ -154,10 +154,19 @@ namespace Content.Client.Cargo.BUI
             if (!disposing)
                 return;
 
-            _menu?.Orphan();
-            _orderMenu?.Orphan();
-            _menu = null;
-            _orderMenu = null;
+            if (_menu != null)
+            {
+                if (_menu.Parent != null)
+                    _menu.Orphan();
+                _menu = null;
+            }
+
+            if (_orderMenu != null)
+            {
+                if (_orderMenu.Parent != null)
+                    _orderMenu.Orphan();
+                _orderMenu = null;
+            }
         }
 
         private bool AddOrder()

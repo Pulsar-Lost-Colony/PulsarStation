@@ -31,5 +31,5 @@ public sealed partial class ArmableComponent : Component
     /// Text to show on examination when the entity is not armed
     /// </summary>
     [DataField]
-    public LocId? ExamineTextNotArmed ="armable-examine-not-armed";
+    public LocId? ExamineTextNotArmed = "armable-examine-not-armed";
 }

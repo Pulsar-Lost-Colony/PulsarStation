@@ -47,7 +47,8 @@ public sealed class StorageBoundUserInterface : BoundUserInterface
             return;
 
         _window.OnClose -= Close;
-        _window.Orphan();
+        if (_window.Parent != null)
+            _window.Orphan();
         _window = null;
     }
 

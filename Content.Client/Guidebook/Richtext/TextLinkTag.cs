@@ -53,7 +53,7 @@ public sealed class TextLinkTag : IMarkupTagHandler
         if (control.TryGetParentHandler<ILinkClickHandler>(out var handler))
             handler.HandleClick(link);
         else
-            Logger.Warning("Warning! No valid ILinkClickHandler found.");
+            IoCManager.Resolve<ISawmill>().Warning("Warning! No valid ILinkClickHandler found.");
     }
 }
 

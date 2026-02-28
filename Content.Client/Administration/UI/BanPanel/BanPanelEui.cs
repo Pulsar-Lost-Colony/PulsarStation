@@ -37,6 +37,7 @@ public sealed class BanPanelEui : BaseEui
     public override void Closed()
     {
         BanPanel.Close();
-        BanPanel.Orphan();
+        if (BanPanel.Parent != null)
+            BanPanel.Orphan();
     }
 }

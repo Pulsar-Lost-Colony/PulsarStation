@@ -94,7 +94,8 @@ namespace Content.Client.Voting
             {
                 foreach (var popup in _votePopups.Values)
                 {
-                    popup.Orphan();
+                    if (popup != null && popup.Parent != null)
+                        popup.Orphan();
                 }
             }
 
@@ -167,8 +168,8 @@ namespace Content.Client.Voting
                 _votes.Remove(voteId);
                 if (_votePopups.TryGetValue(voteId, out var toRemove))
                 {
-
-                    toRemove.Orphan();
+                    if (toRemove != null && toRemove.Parent != null)
+                        toRemove.Orphan();
                     _votePopups.Remove(voteId);
                 }
 

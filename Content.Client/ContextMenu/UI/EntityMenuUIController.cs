@@ -312,7 +312,8 @@ namespace Content.Client.ContextMenu.UI
 
             // remove the element
             var parent = element.ParentMenu?.ParentElement;
-            element.Orphan();
+            if (element.Parent != null)
+                element.Orphan();
             Elements.Remove(entity);
 
             // update any parent elements
@@ -340,7 +341,8 @@ namespace Content.Client.ContextMenu.UI
             if (entity == null)
             {
                 // This whole element has no associated entities. We should remove it
-                element.Orphan();
+                if (element.Parent != null)
+                    element.Orphan();
                 return;
             }
 
@@ -352,8 +354,12 @@ namespace Content.Client.ContextMenu.UI
                 // There was only one entity in the sub-menu. So we will just remove the sub-menu and point directly to
                 // that entity.
                 element.Entity = entity;
-                element.SubMenu.Orphan();
-                element.SubMenu = null;
+                if (element.SubMenu != null)
+                {
+                    if (element.SubMenu.Parent != null)
+                        element.SubMenu.Orphan();
+                    element.SubMenu = null;
+                }
                 Elements[entity.Value] = element;
             }
 

@@ -37,7 +37,12 @@ namespace Content.Client.Wires.UI
             if (!disposing)
                 return;
 
-            _menu?.Orphan();
+            if (_menu != null)
+            {
+                if (_menu.Parent != null)
+                    _menu.Orphan();
+                _menu = null;
+            }
         }
     }
 }

@@ -418,7 +418,8 @@ public sealed partial class ChatUIController : UIController
 
     public void SetSpeechBubbleRoot(LayoutContainer root)
     {
-        _speechBubbleRoot.Orphan();
+        if (_speechBubbleRoot.Parent != null)
+            _speechBubbleRoot.Orphan();
         root.AddChild(_speechBubbleRoot);
         LayoutContainer.SetAnchorPreset(_speechBubbleRoot, LayoutContainer.LayoutPreset.Wide);
         _speechBubbleRoot.SetPositionLast();
@@ -499,7 +500,8 @@ public sealed partial class ChatUIController : UIController
 
     public void RemoveSpeechBubble(EntityUid entityUid, SpeechBubble bubble)
     {
-        bubble.Orphan();
+        if (bubble.Parent != null)
+            bubble.Orphan();
 
         var list = _activeSpeechBubbles[entityUid];
         list.Remove(bubble);

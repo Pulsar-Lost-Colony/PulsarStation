@@ -29,8 +29,12 @@ public sealed partial class GunSystem
     /// <param name="component"></param>
     private void RefreshControl(Entity<AmmoCounterComponent> ent)
     {
-        ent.Comp.Control?.Orphan();
-        ent.Comp.Control = null;
+        if (ent.Comp.Control != null)
+        {
+            if (ent.Comp.Control.Parent != null)
+                ent.Comp.Control?.Orphan();
+            ent.Comp.Control = null;
+        }
 
         var ev = new AmmoCounterControlEvent();
         RaiseLocalEvent(ent, ev, false);

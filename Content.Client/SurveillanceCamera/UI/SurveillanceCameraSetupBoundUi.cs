@@ -63,9 +63,10 @@ public sealed class SurveillanceCameraSetupBoundUi : BoundUserInterface
     {
         base.Dispose(disposing);
 
-        if (disposing)
+        if (disposing && _window != null)
         {
-            _window?.Orphan();
+            if (_window.Parent != null)
+                _window.Orphan();
             _window = null;
         }
     }

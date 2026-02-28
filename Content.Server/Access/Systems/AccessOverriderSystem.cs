@@ -52,7 +52,7 @@ public sealed class AccessOverriderSystem : SharedAccessOverriderSystem
         if (args.Target == null || !TryComp(args.Target, out AccessReaderComponent? accessReader))
             return;
 
-        if (!_interactionSystem.InRangeUnobstructed(args.User, (EntityUid) args.Target))
+        if (!_interactionSystem.InRangeUnobstructed(args.User, (EntityUid)args.Target))
             return;
 
         var doAfterEventArgs = new DoAfterArgs(EntityManager, args.User, component.DoAfter, new AccessOverriderDoAfterEvent(), uid, target: args.Target, used: uid)
@@ -192,7 +192,7 @@ public sealed class AccessOverriderSystem : SharedAccessOverriderSystem
 
         if (newAccessList.Count > 0 && !newAccessList.TrueForAll(x => component.AccessLevels.Contains(x)))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
+            Sawmill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
             return;
         }
 
@@ -210,14 +210,14 @@ public sealed class AccessOverriderSystem : SharedAccessOverriderSystem
 
         if (!difference.IsSubsetOf(privilegedPerms))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
+            Sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
 
             return;
         }
 
         if (!oldTags.ToHashSet().IsSubsetOf(privilegedPerms))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions when they do not have sufficient access!");
+            Sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions when they do not have sufficient access!");
             _popupSystem.PopupEntity(Loc.GetString("access-overrider-cannot-modify-access"), player, player);
             _audioSystem.PlayPvs(component.DenialSound, uid);
 

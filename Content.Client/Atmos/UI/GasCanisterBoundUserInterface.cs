@@ -81,8 +81,13 @@ namespace Content.Client.Atmos.UI
         {
             base.Dispose(disposing);
             if (!disposing) return;
-            _window?.Orphan();
-            _window = null;
+
+            if (_window != null)
+            {
+                if (_window.Parent != null)
+                    _window.Orphan();
+                _window = null;
+            }
         }
     }
 }

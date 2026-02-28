@@ -54,7 +54,8 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         if (_infoWindow == null)
             return;
 
-        _infoWindow.Orphan();
+        if (_infoWindow.Parent != null)
+            _infoWindow.Orphan();
         _infoWindow = null;
     }
 
@@ -83,8 +84,12 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
     {
         _netManager.ClientSendMessage(new RulesAcceptedMessage());
 
-        _rulesPopup?.Orphan();
-        _rulesPopup = null;
+        if (_rulesPopup != null)
+        {
+            if (_rulesPopup.Parent != null)
+                _rulesPopup?.Orphan();
+            _rulesPopup = null;
+        }
     }
 
     public GuideEntryPrototype GetCoreRuleEntry()

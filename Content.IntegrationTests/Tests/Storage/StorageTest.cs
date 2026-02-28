@@ -12,6 +12,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests.Storage;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 public sealed class StorageTest
 {
     /// <summary>
@@ -261,3 +262,4 @@ public sealed class StorageTest
         await pair.CleanReturnAsync();
     }
 }
+#pragma warning restore CS0618 // Type or member is obsolete

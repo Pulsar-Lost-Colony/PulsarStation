@@ -49,10 +49,12 @@ public sealed class AnalysisConsoleBoundUserInterface(EntityUid owner, Enum uiKe
     {
         base.Dispose(disposing);
 
-        if (!disposing)
-            return;
-
-        _consoleMenu?.Orphan();
+        if (_consoleMenu != null && disposing)
+        {
+            if (_consoleMenu.Parent != null)
+                _consoleMenu.Orphan();
+            _consoleMenu = null;
+        }
     }
 }
 

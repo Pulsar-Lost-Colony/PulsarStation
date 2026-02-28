@@ -233,7 +233,8 @@ public sealed partial class FancyTree : Control
     {
         foreach (var item in Items)
         {
-            item.Orphan();
+            if (item != null && item.Parent != null)
+                item.Orphan();
         }
 
         Items.Clear();

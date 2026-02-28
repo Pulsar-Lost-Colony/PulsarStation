@@ -384,7 +384,8 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         if (_menuDragHelper.Dragged is not { } dragged)
             return false;
 
-        DraggingGhost!.Orphan();
+        if (DraggingGhost!.Parent != null)
+            DraggingGhost!.Orphan();
         DraggingRotation = dragged.Location.Rotation;
 
         UIManager.PopupRoot.AddChild(DraggingGhost);
@@ -404,7 +405,8 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
             !_storage.TryGetStorageLocation(DraggingGhost.Entity, out var container, out _, out _) ||
             !_ui.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, player.Value))
         {
-            DraggingGhost.Orphan();
+            if (DraggingGhost.Parent != null)
+                DraggingGhost.Orphan();
             return false;
         }
 

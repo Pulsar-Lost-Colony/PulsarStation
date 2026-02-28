@@ -488,9 +488,16 @@ namespace Content.Client.Lobby.UI
 
                 TabContainer.RemoveChild(_flavorText);
                 _flavorText.OnFlavorTextChanged -= OnFlavorTextChange;
-                _flavorText.Orphan();
-                _flavorTextEdit?.Orphan();
-                _flavorTextEdit = null;
+
+                if (_flavorText.Parent != null)
+                    _flavorText.Orphan();
+
+                if (_flavorTextEdit != null)
+                {
+                    if (_flavorTextEdit.Parent != null)
+                        _flavorTextEdit.Orphan();
+                    _flavorTextEdit = null;
+                }
                 _flavorText = null;
             }
         }
@@ -776,8 +783,12 @@ namespace Content.Client.Lobby.UI
         /// </summary>
         public void RefreshLoadouts()
         {
-            _loadoutWindow?.Orphan();
-            _loadoutWindow = null;
+            if (_loadoutWindow != null)
+            {
+                if (_loadoutWindow.Parent != null)
+                    _loadoutWindow.Orphan();
+                _loadoutWindow = null;
+            }
         }
 
         /// <summary>
@@ -1076,8 +1087,12 @@ namespace Content.Client.Lobby.UI
 
         private void OpenLoadout(JobPrototype? jobProto, RoleLoadout roleLoadout, RoleLoadoutPrototype roleLoadoutProto)
         {
-            _loadoutWindow?.Orphan();
-            _loadoutWindow = null;
+            if (_loadoutWindow != null)
+            {
+                if (_loadoutWindow.Parent != null)
+                    _loadoutWindow.Orphan();
+                _loadoutWindow = null;
+            }
             var collection = IoCManager.Instance;
 
             if (collection == null || _playerManager.LocalSession == null || Profile == null)
@@ -1202,8 +1217,12 @@ namespace Content.Client.Lobby.UI
             if (!disposing)
                 return;
 
-            _loadoutWindow?.Orphan();
-            _loadoutWindow = null;
+            if (_loadoutWindow != null)
+            {
+                if (_loadoutWindow.Parent != null)
+                    _loadoutWindow.Orphan();
+                _loadoutWindow = null;
+            }
         }
 
         protected override void EnteredTree()

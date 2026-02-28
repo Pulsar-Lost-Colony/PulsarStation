@@ -370,7 +370,8 @@ namespace Content.Client.Examine
             var vbox = _examineTooltipOpen?.GetChild(0).GetChild(0);
             if (vbox == null)
             {
-                buttonsHBox.Orphan();
+                if (buttonsHBox != null && buttonsHBox.Parent != null)
+                    buttonsHBox.Orphan();
                 return;
             }
 
@@ -436,8 +437,13 @@ namespace Content.Client.Examine
                         button.OnPressed -= VerbButtonPressed;
                     }
                 }
-                _examineTooltipOpen.Orphan();
-                _examineTooltipOpen = null;
+
+                if (_examineTooltipOpen != null)
+                {
+                    if (_examineTooltipOpen.Parent != null)
+                        _examineTooltipOpen.Orphan();
+                    _examineTooltipOpen = null;
+                }
             }
 
             if (_requestCancelTokenSource != null)

@@ -40,7 +40,12 @@ public sealed class IpcFaceUserInterface : BoundUserInterface
         base.Dispose(disposing);
         if (!disposing)
             return;
-        _menu?.Orphan();
-        _menu = null;
+
+        if (_menu != null)
+        {
+            if (_menu.Parent != null)
+                _menu.Orphan();
+            _menu = null;
+        }
     }
 }

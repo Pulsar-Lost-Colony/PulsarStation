@@ -75,8 +75,12 @@ namespace Content.Client.Launcher
 
         protected override void Shutdown()
         {
-            _control?.Orphan();
-            _control = null;
+            if (_control != null)
+            {
+                if (_control.Parent != null)
+                    _control.Orphan();
+                _control = null;
+            }
 
             _clientNetManager.ConnectFailed -= OnConnectFailed;
             _clientNetManager.ClientConnectStateChanged -= OnConnectStateChanged;

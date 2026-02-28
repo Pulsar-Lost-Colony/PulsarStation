@@ -42,7 +42,7 @@ namespace Content.Client.Access.UI
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
-            _logMill = _logManager.GetSawmill(SharedIdCardConsoleSystem.Sawmill);
+            _logMill = _logManager.GetSawmill(SharedIdCardConsoleSystem.SawmillLocaName);
 
             _owner = owner;
 

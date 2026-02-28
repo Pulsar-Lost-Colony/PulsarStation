@@ -65,8 +65,12 @@ namespace Content.Client.Access.UI
             if (!disposing)
                 return;
 
-            _window?.Orphan();
-            _window = null;
+            if (_window != null)
+            {
+                if (_window.Parent != null)
+                    _window?.Orphan();
+                _window = null;
+            }
         }
 
         protected override void UpdateState(BoundUserInterfaceState state)

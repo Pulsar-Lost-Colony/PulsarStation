@@ -48,7 +48,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     public sealed class GasCanisterHoldingTankEjectMessage : BoundUserInterfaceMessage
     {
         public GasCanisterHoldingTankEjectMessage()
-        {}
+        { }
     }
 
     [Serializable, NetSerializable]

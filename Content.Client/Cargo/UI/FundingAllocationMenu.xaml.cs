@@ -107,7 +107,8 @@ public sealed partial class FundingAllocationMenu : FancyWindow
 
         foreach (var ctrl in _addedControls)
         {
-            ctrl.Orphan();
+            if (ctrl.Parent != null)
+                ctrl.Orphan();
         }
 
         _addedControls.Clear();

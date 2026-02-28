@@ -104,7 +104,7 @@ public sealed class ChannelSelectorPopup : Popup
 
     private void OnSelectorPressed(ButtonEventArgs args)
     {
-        var button = (ChannelSelectorItemButton) args.Button;
+        var button = (ChannelSelectorItemButton)args.Button;
         Select(button.Channel);
     }
 
@@ -113,6 +113,7 @@ public sealed class ChannelSelectorPopup : Popup
         Selected?.Invoke(channel);
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

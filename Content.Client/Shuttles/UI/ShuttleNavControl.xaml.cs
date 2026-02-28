@@ -297,11 +297,11 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
         if (!ShowDocks)
             return;
 
-        const float DockScale = 0.6f;
+        const float dockScale = 0.6f;
         var nent = EntManager.GetNetEntity(uid);
 
         const float sqrt2 = 1.41421356f;
-        const float dockRadius = DockScale * sqrt2;
+        const float dockRadius = dockScale * sqrt2;
         // Worst-case bounds used to cull a dock:
         Box2 viewBounds = new Box2(
             -dockRadius * UIScale,
@@ -325,10 +325,10 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
 
                 var verts = new[]
                 {
-                    Vector2.Transform(position + new Vector2(-DockScale, -DockScale), gridToView),
-                    Vector2.Transform(position + new Vector2(DockScale, -DockScale), gridToView),
-                    Vector2.Transform(position + new Vector2(DockScale, DockScale), gridToView),
-                    Vector2.Transform(position + new Vector2(-DockScale, DockScale), gridToView),
+                    Vector2.Transform(position + new Vector2(-dockScale, -dockScale), gridToView),
+                    Vector2.Transform(position + new Vector2(dockScale, -dockScale), gridToView),
+                    Vector2.Transform(position + new Vector2(dockScale, dockScale), gridToView),
+                    Vector2.Transform(position + new Vector2(-dockScale, dockScale), gridToView),
                 };
 
                 handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, verts, color.WithAlpha(0.8f));

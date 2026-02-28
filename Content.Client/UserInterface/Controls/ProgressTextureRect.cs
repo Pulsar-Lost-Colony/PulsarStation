@@ -19,7 +19,7 @@ namespace Content.Client.UserInterface.Controls
         protected override void Draw(DrawingHandleScreen handle)
         {
             var dims = Texture != null ? GetDrawDimensions(Texture) : UIBox2.FromDimensions(Vector2.Zero, PixelSize);
-            dims.Top = Math.Max(dims.Bottom - dims.Bottom * Progress,0);
+            dims.Top = Math.Max(dims.Bottom - dims.Bottom * Progress, 0);
             handle.DrawRect(dims, _progressColor.GetProgressColor(Progress));
 
             base.Draw(handle);

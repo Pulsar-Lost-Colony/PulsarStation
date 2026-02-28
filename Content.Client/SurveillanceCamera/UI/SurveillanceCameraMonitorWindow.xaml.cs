@@ -53,7 +53,7 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
                 return null;
             }
 
-            return (string) SubnetSelector.SelectedMetadata;
+            return (string)SubnetSelector.SelectedMetadata;
         }
     }
 
@@ -77,7 +77,7 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
         SubnetSelector.OnItemSelected += args =>
         {
             // piss
-            SubnetOpened?.Invoke((string) args.Button.GetItemMetadata(args.Id)!);
+            SubnetOpened?.Invoke((string)args.Button.GetItemMetadata(args.Id)!);
         };
         SubnetRefreshButton.OnPressed += _ => SubnetRefresh?.Invoke();
         SubnetRefreshButtonMap.OnPressed += _ => SubnetRefresh?.Invoke();
@@ -143,12 +143,13 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 
     private void PopulateCameraList(Dictionary<string, string> cameras)
     {
-        var entries = cameras.Select(i => new ItemList.Item(SubnetList) {
+        var entries = cameras.Select(i => new ItemList.Item(SubnetList)
+        {
             Text = $"{i.Value}: {i.Key}",
             Metadata = i.Key
         }).ToList();
         entries.Sort((a, b) => string.Compare(a.Text, b.Text, StringComparison.Ordinal));
-        SubnetList.SetItems(entries, (a,b) => string.Compare(a.Text, b.Text));
+        SubnetList.SetItems(entries, (a, b) => string.Compare(a.Text, b.Text));
     }
 
     private void SetCameraView(IEye? eye)
@@ -205,7 +206,7 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 
     private void OnSubnetListSelect(ItemList.ItemListSelectedEventArgs args)
     {
-        CameraSelected!((string) SubnetList[args.ItemIndex].Metadata!, null);
+        CameraSelected!((string)SubnetList[args.ItemIndex].Metadata!, null);
     }
 
     public void SetMap(EntityUid mapUid)

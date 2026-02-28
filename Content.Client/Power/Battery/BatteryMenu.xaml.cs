@@ -29,10 +29,10 @@ public sealed partial class BatteryMenu : FancyWindow
     // Colors used for the storage cell bar graphic.
     private static readonly Color[] StorageColors =
     [
-        StyleNano.DangerousRedFore,
+        Color.FromHex("#BB3232"),
         Color.FromHex("#C49438"),
         Color.FromHex("#B3BF28"),
-        StyleNano.GoodGreenFore,
+        Color.FromHex("#31843E"),
     ];
 
     // StorageColors but dimmed for "off" bars.

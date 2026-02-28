@@ -7,7 +7,7 @@ namespace Content.Client.Robotics.UI;
 public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
 {
     [ViewVariables]
-    public RoboticsConsoleWindow _window = default!;
+    public RoboticsConsoleWindow RoboticsWindow = default!;
 
     public RoboticsConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -17,14 +17,14 @@ public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
     {
         base.Open();
 
-        _window = this.CreateWindow<RoboticsConsoleWindow>();
-        _window.SetEntity(Owner);
+        RoboticsWindow = this.CreateWindow<RoboticsConsoleWindow>();
+        RoboticsWindow.SetEntity(Owner);
 
-        _window.OnDisablePressed += address =>
+        RoboticsWindow.OnDisablePressed += address =>
         {
             SendMessage(new RoboticsConsoleDisableMessage(address));
         };
-        _window.OnDestroyPressed += address =>
+        RoboticsWindow.OnDestroyPressed += address =>
         {
             SendMessage(new RoboticsConsoleDestroyMessage(address));
         };
@@ -37,6 +37,6 @@ public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
         if (state is not RoboticsConsoleState cast)
             return;
 
-        _window.UpdateState(cast);
+        RoboticsWindow.UpdateState(cast);
     }
 }

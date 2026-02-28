@@ -32,7 +32,7 @@ public sealed partial class ArticleEditorPanel : Control
         // Customize scrollbar width and margin. This is not possible in xaml
         var scrollbar = ContentField.GetChild(1);
         scrollbar.SetWidth = 6f;
-        scrollbar.Margin = new Thickness(9, 0, 2 , 0);
+        scrollbar.Margin = new Thickness(9, 0, 2, 0);
 
         RichTextInfoLabel.TooltipSupplier = sender =>
         {
@@ -119,6 +119,7 @@ public sealed partial class ArticleEditorPanel : Control
         ArticleDraftUpdated?.Invoke(string.Empty, string.Empty);
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

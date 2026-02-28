@@ -8,7 +8,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client.Stylesheets.Sheetlets;
 
 [CommonSheetlet]
-public sealed class SliderSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet, ISliderConfig
+public sealed class SliderSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, ISliderConfig
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {

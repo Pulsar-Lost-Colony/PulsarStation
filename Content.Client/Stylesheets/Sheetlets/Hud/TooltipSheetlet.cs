@@ -11,7 +11,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client.Stylesheets.Sheetlets.Hud;
 
 [CommonSheetlet]
-public sealed class TooltipSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet, ITooltipConfig
+public sealed class TooltipSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, ITooltipConfig
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {

@@ -80,7 +80,10 @@ public sealed class AdminUIController : UIController,
     public void OnSystemUnloaded(AdminSystem system)
     {
         if (_window != null)
-            _window.Dispose();
+        {
+            _window.Orphan();
+            _window = null;
+        }
 
         _admin.AdminStatusUpdated -= AdminStatusUpdated;
 
@@ -167,7 +170,7 @@ public sealed class AdminUIController : UIController,
 
     private void Toggle()
     {
-        if (_window is {IsOpen: true})
+        if (_window is { IsOpen: true })
         {
             _window.Close();
         }
@@ -179,7 +182,7 @@ public sealed class AdminUIController : UIController,
 
     private void PlayerTabEntryKeyBindDown(GUIBoundKeyEventArgs args, ListData? data)
     {
-        if (data is not PlayerListData {Info: var info})
+        if (data is not PlayerListData { Info: var info })
             return;
 
         if (info.NetEntity == null)

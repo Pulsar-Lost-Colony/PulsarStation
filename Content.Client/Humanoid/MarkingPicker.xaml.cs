@@ -22,8 +22,8 @@ public sealed partial class MarkingPicker : Control
     [Dependency] private readonly MarkingManager _markingManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
-	private ISharedSponsorsManager? _sponsorsManager; // Corvax-Sponsors
-	
+    private ISharedSponsorsManager? _sponsorsManager; // Corvax-Sponsors
+
     private readonly SpriteSystem _sprite;
 
     public Action<MarkingSet>? OnMarkingAdded;
@@ -52,7 +52,7 @@ public sealed partial class MarkingPicker : Control
 
     public string IgnoreCategories
     {
-        get => string.Join(',',  _ignoreCategories);
+        get => string.Join(',', _ignoreCategories);
         set
         {
             _ignoreCategories.Clear();
@@ -134,7 +134,7 @@ public sealed partial class MarkingPicker : Control
 
         _sprite = _entityManager.System<SpriteSystem>();
 
-        CMarkingCategoryButton.OnItemSelected +=  OnCategoryChange;
+        CMarkingCategoryButton.OnItemSelected += OnCategoryChange;
         CMarkingsUnused.OnItemSelected += item =>
             _selectedUnusedMarking = CMarkingsUnused[item.ItemIndex];
 
@@ -271,7 +271,7 @@ public sealed partial class MarkingPicker : Control
             var text = Loc.GetString(marking.Forced ? "marking-used-forced" : "marking-used", ("marking-name", $"{GetMarkingName(newMarking)}"),
                 ("marking-category", Loc.GetString($"markings-category-{newMarking.MarkingCategory}")));
 
-            var _item = new ItemList.Item(CMarkingsUsed)
+            var item = new ItemList.Item(CMarkingsUsed)
             {
                 Text = text,
                 Icon = _sprite.Frame0(newMarking.Sprites[0]),
@@ -280,7 +280,7 @@ public sealed partial class MarkingPicker : Control
                 IconModulate = marking.MarkingColors[0]
             };
 
-            CMarkingsUsed.Add(_item);
+            CMarkingsUsed.Add(item);
         }
 
         // since all the points have been processed, update the points visually
@@ -405,7 +405,7 @@ public sealed partial class MarkingPicker : Control
     private void OnUsedMarkingSelected(ItemList.ItemListSelectedEventArgs item)
     {
         _selectedMarking = CMarkingsUsed[item.ItemIndex];
-        var prototype = (MarkingPrototype) _selectedMarking.Metadata!;
+        var prototype = (MarkingPrototype)_selectedMarking.Metadata!;
 
         if (prototype.ForcedColoring)
         {
@@ -461,7 +461,7 @@ public sealed partial class MarkingPicker : Control
     private void ColorChanged(int colorIndex)
     {
         if (_selectedMarking is null) return;
-        var markingPrototype = (MarkingPrototype) _selectedMarking.Metadata!;
+        var markingPrototype = (MarkingPrototype)_selectedMarking.Metadata!;
         int markingIndex = _currentMarkings.FindIndexOf(_selectedMarkingCategory, markingPrototype.ID);
 
         if (markingIndex < 0) return;
@@ -484,7 +484,7 @@ public sealed partial class MarkingPicker : Control
             return;
         }
 
-        var marking = (MarkingPrototype) _selectedUnusedMarking.Metadata!;
+        var marking = (MarkingPrototype)_selectedUnusedMarking.Metadata!;
         var markingObject = marking.AsMarking();
 
         // We need add hair markings in cloned set manually because _currentMarkings doesn't have it
@@ -545,7 +545,7 @@ public sealed partial class MarkingPicker : Control
     {
         if (_selectedMarking is null) return;
 
-        var marking = (MarkingPrototype) _selectedMarking.Metadata!;
+        var marking = (MarkingPrototype)_selectedMarking.Metadata!;
 
         _currentMarkings.Remove(_selectedMarkingCategory, marking.ID);
 

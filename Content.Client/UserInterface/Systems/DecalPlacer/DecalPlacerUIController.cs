@@ -25,7 +25,7 @@ public sealed class DecalPlacerUIController : UIController, IOnStateExited<Gamep
         {
             _window.Close();
         }
-        else if(_sandbox.SandboxAllowed)
+        else if (_sandbox.SandboxAllowed)
         {
             _window.Open();
         }
@@ -35,7 +35,7 @@ public sealed class DecalPlacerUIController : UIController, IOnStateExited<Gamep
     {
         if (_window == null)
             return;
-        _window.Dispose();
+        _window.Orphan();
         _window = null;
     }
 

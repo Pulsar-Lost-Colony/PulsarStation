@@ -15,7 +15,7 @@ namespace Content.Client.Lobby
     ///     connection.
     ///     Stores preferences on the server through <see cref="SelectCharacter" /> and <see cref="UpdateCharacter" />.
     /// </summary>
-    public partial class ClientPreferencesManager : IClientPreferencesManager
+    public sealed partial class ClientPreferencesManager : IClientPreferencesManager
     {
         [Dependency] private readonly IClientNetManager _netManager = default!;
         [Dependency] private readonly IBaseClient _baseClient = default!;
@@ -69,7 +69,7 @@ namespace Content.Client.Lobby
             var sponsorPrototypes = _sponsorsManager?.GetClientPrototypes().ToArray() ?? [];
             profile.EnsureValid(_playerManager.LocalSession!, collection, sponsorPrototypes);
             // Corvax-Sponsors-End
-            var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) {[slot] = profile};
+            var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) { [slot] = profile };
             Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.ConstructionFavorites);
             var msg = new MsgUpdateCharacter
             {

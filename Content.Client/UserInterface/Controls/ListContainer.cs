@@ -30,9 +30,10 @@ public class ListContainer : Control
     /// </summary>
     public Action<ListData, ListContainerButton>? GenerateItem
     {
-        get => _generateItem;
-        set {
-            _generateItem = value;
+        get => ActionGenerateItem;
+        set
+        {
+            ActionGenerateItem = value;
             // Invalidate _itemHeight so we recalculate the size of children the next
             // time PopulateList() is called
             _itemHeight = 0;
@@ -68,7 +69,7 @@ public class ListContainer : Control
     private bool _updateChildren = false;
     private bool _suppressScrollValueChanged;
     private ButtonGroup? _buttonGroup;
-    public Action<ListData, ListContainerButton>? _generateItem;
+    public Action<ListData, ListContainerButton>? ActionGenerateItem;
 
     public int ScrollSpeedY { get; set; } = 50;
 
@@ -103,7 +104,7 @@ public class ListContainer : Control
 
     public virtual void PopulateList(IReadOnlyList<ListData> data)
     {
-        if ((_itemHeight == 0 || _data is {Count: 0}) && data.Count > 0)
+        if ((_itemHeight == 0 || _data is { Count: 0 }) && data.Count > 0)
         {
             ListContainerButton control = new(data[0], 0);
             GenerateItem?.Invoke(data[0], control);
@@ -118,7 +119,7 @@ public class ListContainer : Control
         // Ensure buttons are re-generated.
         foreach (var button in _buttons.Values)
         {
-            button.Dispose();
+            button.Orphan();
         }
         _buttons.Clear();
 
@@ -259,12 +260,12 @@ public class ListContainer : Control
          */
         var scroll = GetScrollValue();
         var oldTopIndex = _topIndex;
-        _topIndex = (int) ((scroll.Y + ActualSeparation) / (_itemHeight + ActualSeparation));
+        _topIndex = (int)((scroll.Y + ActualSeparation) / (_itemHeight + ActualSeparation));
         if (_topIndex != oldTopIndex)
             _updateChildren = true;
 
         var oldBottomIndex = _bottomIndex;
-        _bottomIndex = (int) Math.Ceiling((scroll.Y + finalHeight) / (_itemHeight + ActualSeparation));
+        _bottomIndex = (int)Math.Ceiling((scroll.Y + finalHeight) / (_itemHeight + ActualSeparation));
         _bottomIndex = Math.Min(_bottomIndex, _data.Count);
         if (_bottomIndex != oldBottomIndex)
             _updateChildren = true;
@@ -307,7 +308,7 @@ public class ListContainer : Control
             foreach (var (data, button) in toRemove)
             {
                 _buttons.Remove(data);
-                button.Dispose();
+                button.Orphan();
             }
 
             _vScrollBar.SetPositionLast();
@@ -317,9 +318,9 @@ public class ListContainer : Control
         #region Layout Children
         // Use pixel position
         var pixelWidth = (int)(finalWidth * UIScale);
-        var pixelSeparation = (int) (ActualSeparation * UIScale);
+        var pixelSeparation = (int)(ActualSeparation * UIScale);
 
-        var pixelOffset = (int) -((scroll.Y - _topIndex * (_itemHeight + ActualSeparation)) * UIScale);
+        var pixelOffset = (int)-((scroll.Y - _topIndex * (_itemHeight + ActualSeparation)) * UIScale);
         var first = true;
         foreach (var child in Children)
         {

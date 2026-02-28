@@ -115,7 +115,7 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
             if (!TryComp<AltFireMeleeComponent>(weaponUid, out var altFireComponent) || altDown != BoundKeyState.Down)
                 return;
 
-            switch(altFireComponent.AttackType)
+            switch (altFireComponent.AttackType)
             {
                 case AltFireAttackType.Light:
                     ClientLightAttack(entity, mousePos, coordinates, weaponUid, weapon);

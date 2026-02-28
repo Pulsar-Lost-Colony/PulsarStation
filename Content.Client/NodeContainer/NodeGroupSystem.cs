@@ -25,8 +25,7 @@ namespace Content.Client.NodeContainer
         public Dictionary<int, NodeVis.GroupData> Groups { get; } = new();
         public HashSet<string> Filtered { get; } = new();
 
-        public Dictionary<EntityUid, (NodeVis.GroupData group, NodeVis.NodeDatum node)[]>
-            Entities { get; private set; } = new();
+        public Dictionary<EntityUid, (NodeVis.GroupData group, NodeVis.NodeDatum node)[]> Entities { get; private set; } = new();
 
         public Dictionary<(int group, int node), NodeVis.NodeDatum> NodeLookup { get; private set; } = new();
 

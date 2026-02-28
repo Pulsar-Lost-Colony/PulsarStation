@@ -23,7 +23,7 @@ namespace Content.Client.Wires.UI
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            _menu?.Populate((WiresBoundUserInterfaceState) state);
+            _menu?.Populate((WiresBoundUserInterfaceState)state);
         }
 
         public void PerformAction(int id, WiresAction action)
@@ -37,7 +37,7 @@ namespace Content.Client.Wires.UI
             if (!disposing)
                 return;
 
-            _menu?.Dispose();
+            _menu?.Orphan();
         }
     }
 }

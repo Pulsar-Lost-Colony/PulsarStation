@@ -43,9 +43,9 @@ public sealed class TetherGunOverlay : Overlay
             var angle = diff.ToWorldAngle();
             var length = diff.Length() / 2f;
             var midPoint = gunWorldPos + diff / 2;
-            const float Width = 0.05f;
+            const float cwidth = 0.05f;
 
-            var box = new Box2(-Width, -length, Width, length);
+            var box = new Box2(-cwidth, -length, cwidth, length);
             var rotated = new Box2Rotated(box.Translated(midPoint), angle, midPoint);
 
             var color = Color.Red;

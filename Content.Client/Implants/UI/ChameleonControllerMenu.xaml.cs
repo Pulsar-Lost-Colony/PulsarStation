@@ -26,7 +26,7 @@ public sealed partial class ChameleonControllerMenu : FancyWindow
     private IEnumerable<ChameleonOutfitPrototype> _outfits;
 
     // Lock the UI until this time
-    public DateTime? _lockedUntil;
+    public DateTime? LockedUntil;
 
     private static readonly ProtoId<JobIconPrototype> UnknownIcon = "JobIconUnknown";
     private static readonly LocId UnknownDepartment = "department-Unknown";
@@ -116,7 +116,7 @@ public sealed partial class ChameleonControllerMenu : FancyWindow
         var button = new Button
         {
             HorizontalExpand = true,
-            StyleClasses = {StyleClass.ButtonSquare},
+            StyleClasses = { StyleClass.ButtonSquare },
             ToolTip = Loc.GetString(name),
             Text = Loc.GetString(name),
             Margin = new Thickness(0, 0, 15, 0),
@@ -148,10 +148,10 @@ public sealed partial class ChameleonControllerMenu : FancyWindow
     {
         base.FrameUpdate(args);
 
-        if (_lockedUntil == null || DateTime.Now < _lockedUntil)
+        if (LockedUntil == null || DateTime.Now < LockedUntil)
             return;
 
-        _lockedUntil = null;
+        LockedUntil = null;
         UpdateGrid();
     }
 }

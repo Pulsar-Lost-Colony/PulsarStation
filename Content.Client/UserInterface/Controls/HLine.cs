@@ -15,8 +15,8 @@ public sealed class HLine : PanelContainer
             StyleBox box;
             if (PanelOverride != null)
                 box = PanelOverride;
-            if (TryGetStyleProperty<StyleBox>(StylePropertyPanel, out var _box))
-                box = _box;
+            if (TryGetStyleProperty<StyleBox>(StylePropertyPanel, out var tempbox))
+                box = tempbox;
             else
                 return null;
 
@@ -24,8 +24,7 @@ public sealed class HLine : PanelContainer
                 return boxFlat.BackgroundColor;
             return null;
         }
-        set =>
-            // should use style classes instead in ui code but keeping this functionality for consistency
+        set => // should use style classes instead in ui code but keeping this functionality for consistency
             PanelOverride = new StyleBoxFlat() { BackgroundColor = value!.Value };
     }
 

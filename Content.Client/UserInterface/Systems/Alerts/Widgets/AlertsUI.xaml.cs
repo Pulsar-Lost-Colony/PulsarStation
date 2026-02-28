@@ -43,7 +43,7 @@ public sealed partial class AlertsUI : UIWidget
         foreach (var alertControl in _alertControls.Values)
         {
             alertControl.OnPressed -= AlertControlPressed;
-            alertControl.Dispose();
+            alertControl.Orphan();
         }
 
         _alertControls.Clear();
@@ -74,11 +74,12 @@ public sealed partial class AlertsUI : UIWidget
     private void SyncUpdateControls(AlertsSystem alertsSystem, AlertOrderPrototype? alertOrderPrototype,
         IReadOnlyDictionary<AlertKey, AlertState> alertStates)
     {
+        var sawMill = IoCManager.Resolve<ILogManager>().GetSawmill("alert");
         foreach (var (alertKey, alertState) in alertStates)
         {
             if (!alertKey.AlertType.HasValue)
             {
-                Logger.WarningS("alert", "found alertkey without alerttype," +
+                sawMill.Warning("found alertkey without alerttype," +
                                          " alert keys should never be stored without an alerttype set: {0}", alertKey);
                 continue;
             }
@@ -86,7 +87,7 @@ public sealed partial class AlertsUI : UIWidget
             var alertType = alertKey.AlertType.Value;
             if (!alertsSystem.TryGet(alertType, out var newAlert))
             {
-                Logger.ErrorS("alert", "Unrecognized alertType {0}", alertType);
+                sawMill.Error("Unrecognized alertType {0}", alertType);
                 continue;
             }
 
@@ -113,7 +114,7 @@ public sealed partial class AlertsUI : UIWidget
                     var added = false;
                     foreach (var alertControl in AlertContainer.Children)
                     {
-                        if (alertOrderPrototype.Compare(newAlert, ((AlertControl) alertControl).Alert) >= 0)
+                        if (alertOrderPrototype.Compare(newAlert, ((AlertControl)alertControl).Alert) >= 0)
                             continue;
 
                         var idx = alertControl.GetPositionInParent();

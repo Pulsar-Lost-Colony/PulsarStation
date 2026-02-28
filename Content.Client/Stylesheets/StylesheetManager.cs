@@ -21,12 +21,6 @@ namespace Content.Client.Stylesheets
         public Stylesheet SheetNanotrasen { get; private set; } = default!;
         public Stylesheet SheetSystem { get; private set; } = default!;
 
-        [Obsolete("Update to use SheetNanotrasen instead")]
-        public Stylesheet SheetNano { get; private set; } = default!;
-
-        [Obsolete("Update to use SheetSystem instead")]
-        public Stylesheet SheetSpace { get; private set; } = default!;
-
         private Dictionary<string, Stylesheet> Stylesheets { get; set; } = default!;
 
         public bool TryGetStylesheet(string name, [MaybeNullWhen(false)] out Stylesheet stylesheet)
@@ -44,13 +38,11 @@ namespace Content.Client.Stylesheets
 
             // add all sheetlets to the hashset
             var tys = _reflection.FindTypesWithAttribute<CommonSheetletAttribute>();
-            UnusedSheetlets = [..tys];
+            UnusedSheetlets = [.. tys];
 
             Stylesheets = new Dictionary<string, Stylesheet>();
             SheetNanotrasen = Init(new NanotrasenStylesheet(new BaseStylesheet.NoConfig(), this));
             SheetSystem = Init(new SystemStylesheet(new BaseStylesheet.NoConfig(), this));
-            SheetNano = new StyleNano(_resCache).Stylesheet; // TODO: REMOVE (obsolete)
-            SheetSpace = new StyleSpace(_resCache).Stylesheet; // TODO: REMOVE (obsolete)
 
             _userInterfaceManager.Stylesheet = SheetNanotrasen;
 

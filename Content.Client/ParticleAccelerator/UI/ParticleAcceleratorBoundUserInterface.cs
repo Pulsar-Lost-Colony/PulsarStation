@@ -41,7 +41,7 @@ namespace Content.Client.ParticleAccelerator.UI
 
         protected override void UpdateState(BoundUserInterfaceState state)
         {
-            _menu?.DataUpdate((ParticleAcceleratorUIState) state);
+            _menu?.DataUpdate((ParticleAcceleratorUIState)state);
         }
     }
 }

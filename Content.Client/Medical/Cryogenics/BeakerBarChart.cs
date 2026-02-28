@@ -246,7 +246,7 @@ public sealed class BeakerBarChart : Control
         for (int i = 0; i <= Capacity / unitsPerNotch; i++)
         {
             var x = i * unitWidth;
-            var height = (i % BigNotchInterval    == 0 ? BigNotchHeight :
+            var height = (i % BigNotchInterval == 0 ? BigNotchHeight :
                           i % MediumNotchInterval == 0 ? MediumNotchHeight :
                                                          SmallNotchHeight) * PixelHeight;
             var start = new Vector2(x, PixelHeight);

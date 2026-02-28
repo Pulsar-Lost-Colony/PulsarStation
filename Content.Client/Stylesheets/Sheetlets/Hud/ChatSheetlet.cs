@@ -9,7 +9,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client.Stylesheets.Sheetlets.Hud;
 
 [CommonSheetlet]
-public sealed class ChatSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet, IButtonConfig
+public sealed class ChatSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, IButtonConfig
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {

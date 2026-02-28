@@ -19,7 +19,7 @@ public sealed class CloseRecentWindowUIController : UIController
     /// be in this list once, with the most recent window at the end, and the oldest
     /// window at the start.
     /// </summary>
-    List<BaseWindow> recentlyInteractedWindows = new List<BaseWindow>();
+    List<BaseWindow> _recentlyInteractedWindows = new List<BaseWindow>();
 
     public override void Initialize()
     {
@@ -38,10 +38,10 @@ public sealed class CloseRecentWindowUIController : UIController
     public void CloseMostRecentWindow()
     {
         // Search backwards through the recency list to find a still open window and close it
-        for (int i=recentlyInteractedWindows.Count-1; i>=0; i--)
+        for (int i = _recentlyInteractedWindows.Count - 1; i >= 0; i--)
         {
-            var window = recentlyInteractedWindows[i];
-            recentlyInteractedWindows.RemoveAt(i); // Should always be removed as either the reference is stale or we're closing it
+            var window = _recentlyInteractedWindows[i];
+            _recentlyInteractedWindows.RemoveAt(i); // Should always be removed as either the reference is stale or we're closing it
             if (window.IsOpen)
             {
                 window.Close();
@@ -79,26 +79,26 @@ public sealed class CloseRecentWindowUIController : UIController
         // Search through the list and see if already added.
         // (This search is backwards since it's fairly common that the user is clicking the same
         // window multiple times in a row, and so that saves a tiny bit of perf doing it this way)
-        for (int i=recentlyInteractedWindows.Count-1; i>=0; i--)
+        for (int i = _recentlyInteractedWindows.Count - 1; i >= 0; i--)
         {
-            if (recentlyInteractedWindows[i] == window)
+            if (_recentlyInteractedWindows[i] == window)
             {
                 // Window already in the list
 
                 // Is window the top most recent entry?
-                if (i == recentlyInteractedWindows.Count-1)
+                if (i == _recentlyInteractedWindows.Count - 1)
                     return; // Then there's nothing to do, it's already in the right spot
                 else
                 {
                     // Need to remove the old entry so it can be readded (no duplicates in list allowed)
-                    recentlyInteractedWindows.RemoveAt(i);
+                    _recentlyInteractedWindows.RemoveAt(i);
                     break;
                 }
             }
         }
 
         // Now that the list has been checked for duplicates, okay to add new window at end of tracking
-        recentlyInteractedWindows.Add(window);
+        _recentlyInteractedWindows.Add(window);
     }
 
     private BaseWindow? GetWindowForControl(Control? control)
@@ -107,7 +107,7 @@ public sealed class CloseRecentWindowUIController : UIController
             return null;
 
         if (control is BaseWindow)
-            return (BaseWindow) control;
+            return (BaseWindow)control;
 
         // Go up the hierarchy until we find a window (or don't)
         return GetWindowForControl(control.Parent);
@@ -118,7 +118,7 @@ public sealed class CloseRecentWindowUIController : UIController
         if (control is BaseWindow)
         {
             // On new window open, add to tracking
-            SetMostRecentlyInteractedWindow((BaseWindow) control);
+            SetMostRecentlyInteractedWindow((BaseWindow)control);
         }
     }
 
@@ -128,9 +128,9 @@ public sealed class CloseRecentWindowUIController : UIController
     /// <returns></returns>
     public bool HasClosableWindow()
     {
-        for (var i = recentlyInteractedWindows.Count - 1; i >= 0; i--)
+        for (var i = _recentlyInteractedWindows.Count - 1; i >= 0; i--)
         {
-            var window = recentlyInteractedWindows[i];
+            var window = _recentlyInteractedWindows[i];
             if (window.IsOpen)
                 return true;
 

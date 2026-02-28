@@ -207,7 +207,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     private List<IMapObject> GetViewportMapObjects(Matrix3x2 matty, List<IMapObject> mapObjects)
     {
         var results = new List<IMapObject>();
-        var enlargement = new Vector2i((int) (16 * UIScale), (int) (16 * UIScale));
+        var enlargement = new Vector2i((int)(16 * UIScale), (int)(16 * UIScale));
         var viewBox = new UIBox2i(Vector2i.Zero - enlargement, PixelSize + enlargement);
 
         foreach (var mapObj in mapObjects)
@@ -298,7 +298,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
             }
 
             var adjustedPos = Vector2.Transform(mapCoords.Position, matty);
-            var localPos = ScalePosition(adjustedPos with { Y = -adjustedPos.Y});
+            var localPos = ScalePosition(adjustedPos with { Y = -adjustedPos.Y });
             handle.DrawCircle(localPos, exclusion.Range * MinimapScale, exclusionColor.WithAlpha(0.05f));
             handle.DrawCircle(localPos, exclusion.Range * MinimapScale, exclusionColor, filled: false);
 
@@ -452,7 +452,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
                     // Draw line from our shuttle to target
                     // Might need to clip the line if it's too far? But my brain wasn't working so F.
-                    handle.DrawDottedLine(gridUiPos, mouseLocalPos, color, (float) realTime.TotalSeconds * 30f);
+                    handle.DrawDottedLine(gridUiPos, mouseLocalPos, color, (float)realTime.TotalSeconds * 30f);
 
                     // Draw shuttle pre-vis
                     var mouseVerts = GetMapObject(mouseLocalPos, _ftlAngle, scale: MinimapScale);
@@ -522,7 +522,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
             var beaconCoords = _xformSystem.ToMapCoordinates(EntManager.GetCoordinates(beacon.Coordinates));
             var position = Vector2.Transform(beaconCoords.Position, mapTransform);
-            var localPos = ScalePosition(position with {Y = -position.Y});
+            var localPos = ScalePosition(position with { Y = -position.Y });
 
             // If beacon not on screen then ignore it.
             if (!area.Contains(localPos.Floored()))
@@ -561,7 +561,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     private bool TryGetBeacon(IEnumerable<IMapObject> mapObjects, Matrix3x2 mapTransform, Vector2 mousePos, UIBox2i area, out ShuttleBeaconObject foundBeacon, out Vector2 foundLocalPos)
     {
         // In pixels
-        const float BeaconSnapRange = 32f;
+        const float beaconSnapRange = 32f;
         float nearestValue = float.MaxValue;
         foundLocalPos = Vector2.Zero;
         foundBeacon = default;
@@ -581,7 +581,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
                 continue;
 
             var position = Vector2.Transform(beaconCoords.Position, mapTransform);
-            var localPos = ScalePosition(position with {Y = -position.Y});
+            var localPos = ScalePosition(position with { Y = -position.Y });
 
             // If beacon not on screen then ignore it.
             if (!area.Contains(localPos.Floored()))
@@ -589,7 +589,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
             var distance = (localPos - mousePos).Length();
 
-            if (distance > BeaconSnapRange * UIScale ||
+            if (distance > beaconSnapRange * UIScale ||
                 distance > nearestValue)
             {
                 continue;

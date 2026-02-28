@@ -67,14 +67,14 @@ public sealed partial class ItemStatusPanel : Control
         //Because of hand ui flipping, left and right instead correspond to outside and inside respectively.
         patchMargin = MarginFromThemeColor("_itemstatus_patch_margin");
 
-        var panel = (StyleBoxTexture) Panel.PanelOverride!;
+        var panel = (StyleBoxTexture)Panel.PanelOverride!;
         panel.Texture = texture;
         panel.SetPatchMargin(cutOut, patchMargin.Left);
         panel.SetPatchMargin(flat, patchMargin.Right);
         panel.SetPatchMargin(StyleBox.Margin.Top, patchMargin.Top);
         panel.SetPatchMargin(StyleBox.Margin.Bottom, patchMargin.Bottom);
 
-        var panelHighlight = (StyleBoxTexture) HighlightPanel.PanelOverride!;
+        var panelHighlight = (StyleBoxTexture)HighlightPanel.PanelOverride!;
         panelHighlight.Texture = textureHighlight;
         panelHighlight.SetPatchMargin(cutOut, patchMargin.Left);
         panelHighlight.SetPatchMargin(flat, patchMargin.Right);

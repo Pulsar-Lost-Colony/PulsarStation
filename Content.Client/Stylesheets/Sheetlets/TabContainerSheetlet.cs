@@ -8,7 +8,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client.Stylesheets.Sheetlets;
 
 [CommonSheetlet]
-public sealed class TabContainerSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet, ITabContainerConfig
+public sealed class TabContainerSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, ITabContainerConfig
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {

@@ -62,7 +62,8 @@ public partial class ChatBox : UIWidget
         }
 
         if (msg is { Read: false, AudioPath: { } })
-            _entManager.System<AudioSystem>().PlayGlobal(msg.AudioPath, Filter.Local(), false, AudioParams.Default.WithVolume(msg.AudioVolume));
+            _entManager.System<AudioSystem>().PlayGlobal(IoCManager.Resolve<AudioSystem>().ResolveSound(new SoundPathSpecifier(msg.AudioPath)),
+                Filter.Local(), false, AudioParams.Default.WithVolume(msg.AudioVolume));
 
         msg.Read = true;
 
@@ -202,6 +203,7 @@ public partial class ChatBox : UIWidget
         _controller.NotifyChatFocus(false);
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

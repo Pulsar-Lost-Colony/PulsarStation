@@ -11,13 +11,13 @@ public sealed class ItemListSheetlet : Sheetlet<PalettedStylesheet>
     private static StyleBoxFlat Box(Color c)
     {
         return new StyleBoxFlat(c)
-            // TODO: dont hardcode these maybe
-            {
-                ContentMarginLeftOverride = 4,
-                ContentMarginTopOverride = 2,
-                ContentMarginRightOverride = 4,
-                ContentMarginBottomOverride = 2,
-            };
+        // TODO: dont hardcode these maybe
+        {
+            ContentMarginLeftOverride = 4,
+            ContentMarginTopOverride = 2,
+            ContentMarginRightOverride = 4,
+            ContentMarginBottomOverride = 2,
+        };
     }
 
     public override StyleRule[] GetRules(PalettedStylesheet sheet, object config)

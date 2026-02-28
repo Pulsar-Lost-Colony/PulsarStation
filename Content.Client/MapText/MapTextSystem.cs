@@ -70,12 +70,16 @@ public sealed class MapTextSystem : SharedMapTextSystem
             component.CachedText = Loc.GetString("map-text-font-error");
             component.Color = Color.Red;
 
-            if(_prototypeManager.TryIndex<FontPrototype>(SharedMapTextComponent.DefaultFont, out var @default))
+            if (_prototypeManager.TryIndex<FontPrototype>(SharedMapTextComponent.DefaultFont, out var @default))
+#pragma warning disable CS0618 // I can't imagine how else to solve this problem, since I would have to change the SharedMapTextComponent.
+
                 component.CachedFont = new VectorFont(_resourceCache.GetResource<FontResource>(@default.Path), 14);
+
             return;
         }
 
         var fontResource = _resourceCache.GetResource<FontResource>(fontPrototype.Path);
         component.CachedFont = new VectorFont(fontResource, component.FontSize);
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }

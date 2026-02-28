@@ -58,7 +58,7 @@ public partial class BaseShuttleControl : MapGridControl
 
         for (var i = 0; i < 4; i++)
         {
-            var dir = (DirectionFlag) Math.Pow(2, i);
+            var dir = (DirectionFlag)Math.Pow(2, i);
             var dirVec = dir.AsDir().ToIntVec();
             _neighborDirections[i] = (dir, dirVec);
         }
@@ -81,15 +81,15 @@ public partial class BaseShuttleControl : MapGridControl
         var gridLines = Color.LightGray.WithAlpha(0.01f);
 
         // Each circle is this x distance of the last one.
-        const float EquatorialMultiplier = 2f;
+        const float equatorialMultiplier = 2f;
 
-        var minDistance = MathF.Pow(EquatorialMultiplier, EquatorialMultiplier * 1.5f);
-        var maxDistance = MathF.Pow(2f, EquatorialMultiplier * 6f);
+        var minDistance = MathF.Pow(equatorialMultiplier, equatorialMultiplier * 1.5f);
+        var maxDistance = MathF.Pow(2f, equatorialMultiplier * 6f);
         var cornerDistance = MathF.Sqrt(WorldRange * WorldRange + WorldRange * WorldRange);
 
         var origin = ScalePosition(-new Vector2(Offset.X, -Offset.Y));
 
-        for (var radius = minDistance; radius <= maxDistance; radius *= EquatorialMultiplier)
+        for (var radius = minDistance; radius <= maxDistance; radius *= equatorialMultiplier)
         {
             if (radius > cornerDistance)
                 continue;
@@ -266,12 +266,12 @@ public partial class BaseShuttleControl : MapGridControl
 
         _parallel.ProcessNow(_drawJob, totalData);
 
-        const float BatchSize = 3f * 4096;
+        const float batchSize = 3f * 4096;
 
-        for (var i = 0; i < Math.Ceiling(triCount / BatchSize); i++)
+        for (var i = 0; i < Math.Ceiling(triCount / batchSize); i++)
         {
-            var start = (int) (i * BatchSize);
-            var end = (int) Math.Min(triCount, start + BatchSize);
+            var start = (int)(i * batchSize);
+            var end = (int)Math.Min(triCount, start + batchSize);
             var count = end - start;
             handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, new Span<Vector2>(_allVertices, start, count), color.WithAlpha(alpha));
         }

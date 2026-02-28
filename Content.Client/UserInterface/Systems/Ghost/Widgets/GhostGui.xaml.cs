@@ -55,13 +55,14 @@ public sealed partial class GhostGui : UIWidget
         TargetWindow.Populate();
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
 
         if (disposing)
         {
-            TargetWindow.Dispose();
+            TargetWindow.Orphan();
         }
     }
 }

@@ -19,7 +19,7 @@ public sealed class ChameleonControllerBoundUserInterface : BoundUserInterface
 
     public ChameleonControllerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
-        _delay =  EntMan.System<UseDelaySystem>();
+        _delay = EntMan.System<UseDelaySystem>();
     }
 
     protected override void Open()
@@ -43,7 +43,7 @@ public sealed class ChameleonControllerBoundUserInterface : BoundUserInterface
         if (!_delay.TryGetDelayInfo((Owner, useDelayComp), out var delay) || _menu == null)
             return;
 
-        _menu._lockedUntil = DateTime.Now.Add(delay.Length);
+        _menu.LockedUntil = DateTime.Now.Add(delay.Length);
         _menu.UpdateGrid(true);
     }
 }

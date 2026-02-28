@@ -9,7 +9,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client.Stylesheets.Sheetlets;
 
 [CommonSheetlet]
-public sealed class PlaceholderSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet, IPlaceholderConfig
+public sealed class PlaceholderSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, IPlaceholderConfig
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {

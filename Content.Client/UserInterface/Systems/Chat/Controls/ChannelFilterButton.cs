@@ -78,6 +78,7 @@ public sealed class ChannelFilterButton : ChatPopupButton<ChannelFilterPopup>
         UpdateChildColors();
     }
 
+    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

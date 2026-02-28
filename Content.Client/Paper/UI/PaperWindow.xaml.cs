@@ -21,7 +21,7 @@ namespace Content.Client.Paper.UI
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IResourceCache _resCache = default!;
 
-        private static Color DefaultTextColor = new(25, 25, 25);
+        private static Color _defaultTextColor = new(25, 25, 25);
 
         // <summary>
         // Size of resize handles around the paper
@@ -41,16 +41,16 @@ namespace Content.Client.Paper.UI
 
         public event Action<string>? OnSaved;
 
-        private int _MaxInputLength = -1;
+        private int _maxInputLength = -1;
         public int MaxInputLength
         {
             get
             {
-                return _MaxInputLength;
+                return _maxInputLength;
             }
             set
             {
-                _MaxInputLength = value;
+                _maxInputLength = value;
                 UpdateFillState();
             }
         }
@@ -61,7 +61,7 @@ namespace Content.Client.Paper.UI
             RobustXamlLoader.Load(this);
 
             // We can't configure the RichTextLabel contents from xaml, so do it here:
-            BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, DefaultTextColor);
+            BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, _defaultTextColor);
 
             // Hook up the close button:
             CloseButton.OnPressed += _ => Close();
@@ -106,7 +106,7 @@ namespace Content.Client.Paper.UI
 
             // Initialize the background:
             PaperBackground.ModulateSelfOverride = visuals.BackgroundModulate;
-            var backgroundImage = visuals.BackgroundImagePath != null? _resCache.GetResource<TextureResource>(visuals.BackgroundImagePath) : null;
+            var backgroundImage = visuals.BackgroundImagePath != null ? _resCache.GetResource<TextureResource>(visuals.BackgroundImagePath) : null;
             if (backgroundImage != null)
             {
                 var backgroundImageMode = visuals.BackgroundImageTile ? StyleBoxTexture.StretchMode.Tile : StyleBoxTexture.StretchMode.Stretch;
@@ -141,7 +141,7 @@ namespace Content.Client.Paper.UI
                     visuals.HeaderMargin.Right, visuals.HeaderMargin.Bottom);
 
             // Then the footer
-            if (visuals.FooterImagePath is {} path)
+            if (visuals.FooterImagePath is { } path)
             {
                 FooterImage.TexturePath = path.ToString();
                 FooterImage.MinSize = FooterImage.TextureNormal?.Size ?? Vector2.Zero;
@@ -271,16 +271,16 @@ namespace Content.Client.Paper.UI
             {
                 msg.AddMarkupPermissive("\r\n");
             }
-            WrittenTextLabel.SetMessage(msg, UserFormattableTags.BaseAllowedTags, DefaultTextColor);
+            WrittenTextLabel.SetMessage(msg, UserFormattableTags.BaseAllowedTags, _defaultTextColor);
 
             WrittenTextLabel.Visible = !isEditing && state.Text.Length > 0;
             BlankPaperIndicator.Visible = !isEditing && state.Text.Length == 0;
 
             StampDisplay.RemoveAllChildren();
             StampDisplay.RemoveStamps();
-            foreach(var stamper in state.StampedBy)
+            foreach (var stamper in state.StampedBy)
             {
-                StampDisplay.AddStamp(new StampWidget{ StampInfo = stamper });
+                StampDisplay.AddStamp(new StampWidget { StampInfo = stamper });
             }
         }
 
@@ -313,7 +313,7 @@ namespace Content.Client.Paper.UI
                 mode |= DragMode.Right;
             }
 
-            if((mode & _allowedResizeModes) == DragMode.None)
+            if ((mode & _allowedResizeModes) == DragMode.None)
             {
                 return DragMode.Move;
             }

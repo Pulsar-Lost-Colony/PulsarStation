@@ -30,7 +30,7 @@ public sealed class StationMapBoundUserInterface : BoundUserInterface
         _window.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
 
         string stationName = string.Empty;
-        if(EntMan.TryGetComponent<MetaDataComponent>(gridUid, out var gridMetaData))
+        if (EntMan.TryGetComponent<MetaDataComponent>(gridUid, out var gridMetaData))
         {
             stationName = gridMetaData.EntityName;
         }

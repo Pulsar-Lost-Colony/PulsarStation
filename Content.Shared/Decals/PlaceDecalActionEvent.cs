@@ -5,7 +5,7 @@ namespace Content.Shared.Decals;
 
 public sealed partial class PlaceDecalActionEvent : WorldTargetActionEvent
 {
-    [DataField("decalId", customTypeSerializer:typeof(PrototypeIdSerializer<DecalPrototype>), required:true)]
+    [DataField("decalId", customTypeSerializer: typeof(PrototypeIdSerializer<DecalPrototype>), required: true)]
     public string DecalId = string.Empty;
 
     [DataField("color")]

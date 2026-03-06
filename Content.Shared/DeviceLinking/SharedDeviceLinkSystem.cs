@@ -37,7 +37,7 @@ public abstract class SharedDeviceLinkSystem : EntitySystem
     {
         List<EntityUid> invalidSinks = new();
         List<(string, string)> invalidLinks = new();
-        foreach (var (sink, links)  in source.Comp.LinkedPorts)
+        foreach (var (sink, links) in source.Comp.LinkedPorts)
         {
             if (!TryComp(sink, out DeviceLinkSinkComponent? sinkComponent))
             {

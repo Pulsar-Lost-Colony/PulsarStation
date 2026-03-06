@@ -37,7 +37,7 @@ public sealed class FoldableClothingSystem : EntitySystem
         }
 
         // Setting hidden layers while equipped is not currently supported.
-        if (ent.Comp.FoldedHideLayers.Count != 0|| ent.Comp.UnfoldedHideLayers.Count != 0)
+        if (ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0)
             args.Cancelled = true;
     }
 
@@ -67,7 +67,16 @@ public sealed class FoldableClothingSystem : EntitySystem
             // TODO CLOTHING fix this.
             if ((ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0) &&
                 TryComp<HideLayerClothingComponent>(ent.Owner, out var hideLayerComp))
-                hideLayerComp.Slots = ent.Comp.FoldedHideLayers;
+            {
+                hideLayerComp.Layers.Clear();
+                foreach (var layer in ent.Comp.FoldedHideLayers)
+                {
+                    // Replicates old logic but without obsolete field
+                    // you steel need to fix that shitcode
+                    hideLayerComp.Layers[layer] = clothingComp.Slots;
+                }
+
+            }
         }
         else
         {
@@ -83,7 +92,14 @@ public sealed class FoldableClothingSystem : EntitySystem
             // TODO CLOTHING fix this.
             if ((ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0) &&
                 TryComp<HideLayerClothingComponent>(ent.Owner, out var hideLayerComp))
-                hideLayerComp.Slots = ent.Comp.UnfoldedHideLayers;
+            {
+                hideLayerComp.Layers.Clear();
+                foreach (var layer in ent.Comp.FoldedHideLayers)
+                {
+                    hideLayerComp.Layers[layer] = clothingComp.Slots;
+                }
+
+            }
         }
     }
 }

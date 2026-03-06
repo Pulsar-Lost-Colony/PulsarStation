@@ -1,4 +1,4 @@
-﻿using Content.Shared.StatusEffect;
+﻿using Content.Shared.StatusEffectNew;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.EntityEffects.Effects.StatusEffects;
@@ -21,11 +21,11 @@ public sealed partial class GenericStatusEffectEntityEffectSystem : EntityEffect
         {
             case StatusEffectMetabolismType.Update:
                 if (args.Effect.Component != String.Empty)
-                    _status.TryAddStatusEffect(entity, args.Effect.Key, time, true, args.Effect.Component);
+                    _status.TryAddStatusEffectDuration(entity, args.Effect.Key, time, time);
                 break;
             case StatusEffectMetabolismType.Add:
                 if (args.Effect.Component != String.Empty)
-                    _status.TryAddStatusEffect(entity, args.Effect.Key, time, false, args.Effect.Component);
+                    _status.TryAddStatusEffectDuration(entity, args.Effect.Key, time);
                 break;
             case StatusEffectMetabolismType.Remove:
                 _status.TryRemoveTime(entity, args.Effect.Key, time);

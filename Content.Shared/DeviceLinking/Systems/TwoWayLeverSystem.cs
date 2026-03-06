@@ -10,8 +10,8 @@ namespace Content.Shared.DeviceLinking.Systems
         [Dependency] private readonly SharedDeviceLinkSystem _signalSystem = default!;
         [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
 
-        const string _leftToggleImage = "rotate_ccw.svg.192dpi.png";
-        const string _rightToggleImage = "rotate_cw.svg.192dpi.png";
+        const string LeftToggleImage = "rotate_ccw.svg.192dpi.png";
+        const string RightToggleImage = "rotate_cw.svg.192dpi.png";
 
         public override void Initialize()
         {
@@ -65,7 +65,7 @@ namespace Content.Shared.DeviceLinking.Systems
                 Category = VerbCategory.Lever,
                 Message = disabled ? Loc.GetString("two-way-lever-cant") : null,
                 Disabled = disabled,
-                Icon = new SpriteSpecifier.Texture(new ($"/Textures/Interface/VerbIcons/{_leftToggleImage}")),
+                Icon = new SpriteSpecifier.Texture(new($"/Textures/Interface/VerbIcons/{LeftToggleImage}")),
                 Text = Loc.GetString("two-way-lever-left"),
             };
 
@@ -87,7 +87,7 @@ namespace Content.Shared.DeviceLinking.Systems
                 Category = VerbCategory.Lever,
                 Message = disabled ? Loc.GetString("two-way-lever-cant") : null,
                 Disabled = disabled,
-                Icon = new SpriteSpecifier.Texture(new ($"/Textures/Interface/VerbIcons/{_rightToggleImage}")),
+                Icon = new SpriteSpecifier.Texture(new($"/Textures/Interface/VerbIcons/{RightToggleImage}")),
                 Text = Loc.GetString("two-way-lever-right"),
             };
 

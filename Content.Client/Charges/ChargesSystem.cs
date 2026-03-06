@@ -17,7 +17,7 @@ public sealed class ChargesSystem : SharedChargesSystem
         // Technically this should probably be in frameupdate but no one will ever notice a tick of delay on this.
         base.Update(frameTime);
 
-        if (!_timing.IsFirstTimePredicted)
+        if (!GTiming.IsFirstTimePredicted)
             return;
 
         // Update recharging actions. Server doesn't actually care about this and it's a waste of performance, actions are immediate.

@@ -9,6 +9,7 @@ using Content.Shared.Inventory;
 using Content.Shared.Light;
 using Content.Shared.Popups;
 using Content.Shared.StatusEffect;
+using Content.Shared.StatusEffectNew;
 using Content.Shared.Stunnable;
 using Content.Shared.Tag;
 using Content.Shared.Timing;
@@ -38,7 +39,7 @@ public abstract class SharedFlashSystem : EntitySystem
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly MovementModStatusSystem _movementMod = default!;
     [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
+    [Dependency] private readonly Content.Shared.StatusEffectNew.StatusEffectsSystem _statusEffectsSystem = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
 
@@ -163,7 +164,7 @@ public abstract class SharedFlashSystem : EntitySystem
             return;
 
         // don't paralyze, slowdown or convert to rev if the target is immune to flashes
-        if (!_statusEffectsSystem.TryAddStatusEffect<FlashedComponent>(target, FlashedKey, flashDuration, true))
+        if (!_statusEffectsSystem.TryAddStatusEffectDuration(target, FlashedKey.Id, flashDuration, flashDuration))
             return;
 
         if (stunDuration != null)

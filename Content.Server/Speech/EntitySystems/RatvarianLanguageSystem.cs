@@ -4,13 +4,14 @@ using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
 using Content.Shared.Speech.EntitySystems;
 using Content.Shared.StatusEffect;
+using Content.Shared.StatusEffectNew;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Speech.EntitySystems;
 
 public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
 {
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private readonly Content.Shared.StatusEffectNew.StatusEffectsSystem _statusEffects = default!;
 
     private static readonly ProtoId<StatusEffectPrototype> RatvarianKey = "RatvarianLanguage";
 
@@ -28,20 +29,20 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
         * This only applies if they're being used as a proper noun: armorer/Nezbere
      */
 
-    private static Regex THPattern = new Regex(@"th\w\B", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static Regex ETPattern = new Regex(@"\Bet", RegexOptions.Compiled);
-    private static Regex TEPattern = new Regex(@"te\B",RegexOptions.Compiled);
-    private static Regex OFPattern = new Regex(@"(\s)(of)");
-    private static Regex TIPattern = new Regex(@"ti\B", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static Regex GUAPattern = new Regex(@"(gu)(a)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static Regex ANDPattern = new Regex(@"\b(\s)(and)(\s)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static Regex TOMYPattern = new Regex(@"(to|my)\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static Regex ProperNouns = new Regex(@"(ratvar)|(nezbere)|(sevtuq)|(nzcrentr)|(inath-neq)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex _thPattern = new Regex(@"th\w\B", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex _etPattern = new Regex(@"\Bet", RegexOptions.Compiled);
+    private static Regex _tePattern = new Regex(@"te\B", RegexOptions.Compiled);
+    private static Regex _ofPattern = new Regex(@"(\s)(of)");
+    private static Regex _tiPattern = new Regex(@"ti\B", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex _guaPattern = new Regex(@"(gu)(a)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex _andPattern = new Regex(@"\b(\s)(and)(\s)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex _tomyPattern = new Regex(@"(to|my)\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex _properNouns = new Regex(@"(ratvar)|(nezbere)|(sevtuq)|(nzcrentr)|(inath-neq)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public override void Initialize()
     {
         // Activate before other modifications so translation works properly
-        SubscribeLocalEvent<RatvarianLanguageComponent, AccentGetEvent>(OnAccent, before: new[] {typeof(SharedSlurredSystem), typeof(SharedStutteringSystem)});
+        SubscribeLocalEvent<RatvarianLanguageComponent, AccentGetEvent>(OnAccent, before: new[] { typeof(SharedSlurredSystem), typeof(SharedStutteringSystem) });
     }
 
     public override void DoRatvarian(EntityUid uid, TimeSpan time, bool refresh, StatusEffectsComponent? status = null)
@@ -49,7 +50,7 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
         if (!Resolve(uid, ref status, false))
             return;
 
-        _statusEffects.TryAddStatusEffect<RatvarianLanguageComponent>(uid, RatvarianKey, time, refresh, status);
+        _statusEffects.TryAddStatusEffectDuration(uid, RatvarianKey.Id, time, refresh ? time : null);
     }
 
     private void OnAccent(EntityUid uid, RatvarianLanguageComponent component, AccentGetEvent args)
@@ -63,14 +64,14 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
         var finalMessage = new StringBuilder();
         var newWord = new StringBuilder();
 
-        ruleTranslation = THPattern.Replace(ruleTranslation, "$&`");
-        ruleTranslation = TEPattern.Replace(ruleTranslation, "$&-");
-        ruleTranslation = ETPattern.Replace(ruleTranslation, "-$&");
-        ruleTranslation = OFPattern.Replace(ruleTranslation, "-$2");
-        ruleTranslation = TIPattern.Replace(ruleTranslation, "$&`");
-        ruleTranslation = GUAPattern.Replace(ruleTranslation, "$1-$2");
-        ruleTranslation = ANDPattern.Replace(ruleTranslation, "-$2-");
-        ruleTranslation = TOMYPattern.Replace(ruleTranslation, "$1-");
+        ruleTranslation = _thPattern.Replace(ruleTranslation, "$&`");
+        ruleTranslation = _tePattern.Replace(ruleTranslation, "$&-");
+        ruleTranslation = _etPattern.Replace(ruleTranslation, "-$&");
+        ruleTranslation = _ofPattern.Replace(ruleTranslation, "-$2");
+        ruleTranslation = _tiPattern.Replace(ruleTranslation, "$&`");
+        ruleTranslation = _guaPattern.Replace(ruleTranslation, "$1-$2");
+        ruleTranslation = _andPattern.Replace(ruleTranslation, "-$2-");
+        ruleTranslation = _tomyPattern.Replace(ruleTranslation, "$1-");
 
         var temp = ruleTranslation.Split(' ');
 
@@ -78,7 +79,7 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
         {
             newWord.Clear();
 
-            if (ProperNouns.IsMatch(word))
+            if (_properNouns.IsMatch(word))
                 newWord.Append(word);
 
             else
@@ -94,7 +95,7 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
                         if (letterRot > 122)
                             letterRot -= 26;
 
-                        newWord.Append((char) letterRot);
+                        newWord.Append((char)letterRot);
                     }
                     else if (letter >= 65 && letter <= 90)
                     {
@@ -103,7 +104,7 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
                         if (letterRot > 90)
                             letterRot -= 26;
 
-                        newWord.Append((char) letterRot);
+                        newWord.Append((char)letterRot);
                     }
                     else
                     {

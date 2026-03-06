@@ -1,5 +1,6 @@
 using Content.Shared.Rejuvenate;
 using Content.Shared.StatusEffect;
+using Content.Shared.StatusEffectNew;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Jittering
@@ -10,7 +11,7 @@ namespace Content.Shared.Jittering
     public abstract class SharedJitteringSystem : EntitySystem
     {
         [Dependency] protected readonly IGameTiming GameTiming = default!;
-        [Dependency] protected readonly StatusEffectsSystem StatusEffects = default!;
+        [Dependency] protected readonly Content.Shared.StatusEffectNew.StatusEffectsSystem StatusEffects = default!;
 
         public float MaxAmplitude = 300f;
         public float MinAmplitude = 1f;
@@ -52,11 +53,11 @@ namespace Content.Shared.Jittering
             amplitude = Math.Clamp(amplitude, MinAmplitude, MaxAmplitude);
             frequency = Math.Clamp(frequency, MinFrequency, MaxFrequency);
 
-            if (StatusEffects.TryAddStatusEffect<JitteringComponent>(uid, "Jitter", time, refresh, status))
+            if (StatusEffects.TryAddStatusEffectDuration(uid, "Jitter", time, time))
             {
                 var jittering = Comp<JitteringComponent>(uid);
 
-                if(forceValueChange || jittering.Amplitude < amplitude)
+                if (forceValueChange || jittering.Amplitude < amplitude)
                     jittering.Amplitude = amplitude;
 
                 if (forceValueChange || jittering.Frequency < frequency)

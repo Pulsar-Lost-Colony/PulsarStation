@@ -35,7 +35,7 @@ public abstract partial class ReagentData : IEquatable<ReagentData>
         if (obj.GetType() != GetType())
             return false;
 
-        return Equals((ReagentData) obj);
+        return Equals((ReagentData)obj);
     }
 
     public abstract override int GetHashCode();

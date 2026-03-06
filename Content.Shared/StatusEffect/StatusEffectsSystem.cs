@@ -107,6 +107,7 @@ namespace Content.Shared.StatusEffect
         /// <returns>False if the effect could not be added or the component already exists, true otherwise.</returns>
         /// <typeparam name="T">The component type to add and remove from the entity.</typeparam>
         [Obsolete("Migration to Content.Shared.StatusEffectNew.StatusEffectsSystem is required")]
+        // Can be deleted
         public bool TryAddStatusEffect<T>(EntityUid uid, string key, TimeSpan time, bool refresh,
             StatusEffectsComponent? status = null)
             where T : IComponent, new()
@@ -126,6 +127,7 @@ namespace Content.Shared.StatusEffect
 
         }
 
+        // Can be deleted
         [Obsolete("Migration to Content.Shared.StatusEffectNew.StatusEffectsSystem is required")]
         public bool TryAddStatusEffect(EntityUid uid, string key, TimeSpan time, bool refresh, string component,
             StatusEffectsComponent? status = null)
@@ -138,7 +140,7 @@ namespace Content.Shared.StatusEffect
                 // If they already have the comp, we just won't bother updating anything.
                 if (!HasComp(uid, Factory.GetRegistration(component).Type))
                 {
-                    var newComponent = (Component) Factory.GetComponent(component);
+                    var newComponent = (Component)Factory.GetComponent(component);
                     AddComp(uid, newComponent);
                     status.ActiveEffects[key].RelevantComponent = component;
                 }

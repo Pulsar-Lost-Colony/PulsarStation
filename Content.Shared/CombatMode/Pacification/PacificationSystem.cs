@@ -169,7 +169,7 @@ public struct AttemptPacifiedThrowEvent
     public EntityUid ItemUid;
     public EntityUid PlayerUid;
 
-    public AttemptPacifiedThrowEvent(EntityUid itemUid,  EntityUid playerUid)
+    public AttemptPacifiedThrowEvent(EntityUid itemUid, EntityUid playerUid)
     {
         ItemUid = itemUid;
         PlayerUid = playerUid;

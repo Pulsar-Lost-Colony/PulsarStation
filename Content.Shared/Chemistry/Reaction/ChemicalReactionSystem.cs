@@ -158,7 +158,7 @@ namespace Content.Shared.Chemistry.Reaction
             }
 
             if (reaction.Quantized)
-                lowestUnitReactions = (int) lowestUnitReactions;
+                lowestUnitReactions = (int)lowestUnitReactions;
 
             return lowestUnitReactions > 0;
         }

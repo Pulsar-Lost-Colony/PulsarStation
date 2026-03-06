@@ -4,10 +4,10 @@ namespace Content.Shared.Chemistry.Events;
 /// Raised directed on an entity when it embeds in another entity.
 /// </summary>
 [ByRefEvent]
-public readonly record struct InjectOverTimeEvent(EntityUid embeddedIntoUid)
+public readonly record struct InjectOverTimeEvent(EntityUid Embeddedintouid)
 {
     /// <summary>
     /// Entity that is embedded in.
     /// </summary>
-    public readonly EntityUid EmbeddedIntoUid = embeddedIntoUid;
+    public readonly EntityUid EmbeddedIntoUid = Embeddedintouid;
 }

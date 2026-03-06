@@ -145,7 +145,7 @@ public abstract class SharedDeliverySystem : EntitySystem
             {
                 _audio.PlayPredicted(ent.Comp.OpenSound, ent.Owner, user);
 
-                if(ent.Comp.ContainedDeliveryAmount == 0)
+                if (ent.Comp.ContainedDeliveryAmount == 0)
                 {
                     _popup.PopupPredicted(Loc.GetString("delivery-teleporter-empty", ("entity", ent)), null, ent, user);
                     return;

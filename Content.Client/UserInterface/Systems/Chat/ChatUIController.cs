@@ -503,12 +503,14 @@ public sealed partial class ChatUIController : UIController
         if (bubble.Parent != null)
             bubble.Orphan();
 
-        var list = _activeSpeechBubbles[entityUid];
-        list.Remove(bubble);
-
-        if (list.Count == 0)
+        if (_activeSpeechBubbles.ContainsKey(entityUid))
         {
-            _activeSpeechBubbles.Remove(entityUid);
+            var list = _activeSpeechBubbles[entityUid];
+            list.Remove(bubble);
+            if (list.Count == 0)
+            {
+                _activeSpeechBubbles.Remove(entityUid);
+            }
         }
     }
 

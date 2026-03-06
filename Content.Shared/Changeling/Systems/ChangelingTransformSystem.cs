@@ -67,9 +67,10 @@ public sealed partial class ChangelingTransformSystem : EntitySystem
         if (!_uiSystem.IsUiOpen((ent, userInterfaceComp), ChangelingTransformUiKey.Key, args.Performer))
         {
             _uiSystem.OpenUi((ent, userInterfaceComp), ChangelingTransformUiKey.Key, args.Performer);
-        } //TODO: Can add a Else here with TransformInto and CloseUI to make a quick switch,
-          // issue right now is that Radials cover the Action buttons so clicking the action closes the UI (due to clicking off a radial causing it to close, even with UI)
-          // but pressing the number does.
+        }
+        //TODO: Can add a Else here with TransformInto and CloseUI to make a quick switch,
+        // issue right now is that Radials cover the Action buttons so clicking the action closes the UI (due to clicking off a radial causing it to close, even with UI)
+        // but pressing the number does.
     }
 
     /// <summary>

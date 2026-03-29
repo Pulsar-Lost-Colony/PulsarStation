@@ -6,15 +6,10 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobAtmosphericTechnician
-      time: 10h # Corvax-RoleTime 2.5h
-#    - !type:RoleTimeRequirement
-#      role: JobStationEngineer
-#      time: 21600 #6 hrs
+      time: 1h
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 15h # Corvax-RoleTime 5h
-#    - !type:OverallPlaytimeRequirement
-#      time: 144000 #40 hrs
+      time: 2h
     - !type:TraitsRequirement #Corvax-TraitsRequirement
       inverted: true
       traits:

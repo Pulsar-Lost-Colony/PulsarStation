@@ -4,13 +4,10 @@
   description: job-description-rd
   playTimeTracker: JobResearchDirector
   requirements:
-    #- !type:RoleTimeRequirement
-    #  role: JobScientist
-    #  time: 5h
     - !type:DepartmentTimeRequirement
       department: Science
-      time: 15h # Corvax-RoleTime 10
-    - !type:TraitsRequirement #Corvax-TraitsRequirement
+      time: 4h
+    - !type:TraitsRequirement
       inverted: true
       traits:
       - Muted

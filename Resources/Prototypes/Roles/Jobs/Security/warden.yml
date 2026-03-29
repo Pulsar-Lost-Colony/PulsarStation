@@ -6,8 +6,8 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h # Corvax-RoleTime
-    - !type:TraitsRequirement #Corvax-TraitsRequirement
+      time: 3h
+    - !type:TraitsRequirement
       inverted: true
       traits:
       - Muted

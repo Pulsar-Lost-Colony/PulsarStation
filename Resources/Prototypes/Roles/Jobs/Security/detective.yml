@@ -4,9 +4,6 @@
   description: job-description-detective
   playTimeTracker: JobDetective
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 20h # Corvax-RoleTime
     - !type:TraitsRequirement #Corvax-TraitsRequirement
       inverted: true
       traits:

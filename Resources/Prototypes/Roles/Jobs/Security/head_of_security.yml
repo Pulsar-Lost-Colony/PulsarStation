@@ -6,17 +6,11 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobWarden
-      time: 10h # Corvax-RoleTime 1
-    #- !type:RoleTimeRequirement
-    #  role: JobDetective
-    #  time: 1h # knowing how to use the tools is important
-    #- !type:RoleTimeRequirement
-    #  role: JobSecurityOfficer
-    #  time: 5h
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h # Corvax-RoleTime 10
-    - !type:TraitsRequirement #Corvax-TraitsRequirement
+      time: 6h
+    - !type:TraitsRequirement
       inverted: true
       traits:
       - Muted
